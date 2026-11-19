@@ -1,0 +1,839 @@
+{
+  "version": 1,
+  "documents": [
+    "README.md",
+    "GUIDE.md",
+    "API_REFERENCE.md",
+    "QUERY_LANGUAGE.md"
+  ],
+  "examples": {
+    "README.md#requirements-and-installation:1": {
+      "language": "sh",
+      "kind": "installation",
+      "reason": "Install the public driver or optional dataframe dependencies."
+    },
+    "README.md#requirements-and-installation:2": {
+      "language": "sh",
+      "kind": "installation",
+      "reason": "Install the public driver or optional dataframe dependencies."
+    },
+    "README.md#quick-start:1": {
+      "language": "python",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "name": "Alice",
+                "age": 42
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "README.md#in-memory-persistent-and-read-only-databases:1": {
+      "language": "python",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "name": "Alice"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "README.md#database-creation-options:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "README.md#multiple-result-tables-and-rows:1": {
+      "language": "python",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            "Bob",
+            30
+          ]
+        },
+        {
+          "kind": "output",
+          "match": [
+            "Alice",
+            42
+          ]
+        }
+      ]
+    },
+    "README.md#multiple-result-tables-and-rows:2": {
+      "language": "python",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              "first"
+            ],
+            [
+              [
+                1
+              ]
+            ]
+          ]
+        },
+        {
+          "kind": "output",
+          "match": [
+            [
+              "second"
+            ],
+            [
+              [
+                2
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "README.md#row-caps-deadlines-and-cancellation:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "README.md#transactions:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "README.md#undoing-part-of-a-transaction:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "README.md#named-savepoints:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "README.md#fulltext-search:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true,
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "title": "Graph databases",
+                "score": {
+                  "$number": {
+                    "min": 0
+                  }
+                }
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "README.md#vector-search-and-embeddings:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true,
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "text": "Graph databases",
+                "score": {
+                  "$number": {
+                    "min": 0,
+                    "max": 1
+                  }
+                }
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "README.md#arrow-import-and-export:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "README.md#arrow-import-and-export:2": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "README.md#arrow-import-and-export:3": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "README.md#graph-introspection-and-explain:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true,
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            {
+              "$contains": "Person"
+            }
+          ]
+        }
+      ]
+    },
+    "README.md#compatibility-and-maintenance:1": {
+      "language": "python",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            11,
+            11
+          ]
+        }
+      ]
+    },
+    "GUIDE.md#query-parameter-binding:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#query-execution:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#streaming-multiple-result-tables:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#bounded-result-previews:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#query-cancellation-and-timeouts:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true,
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            "query.deadline_exceeded"
+          ]
+        }
+      ]
+    },
+    "GUIDE.md#cancellation-during-fetching:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true,
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            "query.cancelled"
+          ]
+        }
+      ]
+    },
+    "GUIDE.md#results-lifetimes-and-threads:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#graph-values-and-paths:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#decode-json-stored-in-text-properties:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#threads-and-errors:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#scoped-savepoints:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#named-savepoints:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#candidate-filters-and-score-filters:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#fulltext-analyzers-and-pagination:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#subqueries-and-relationship-indexes:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#fulltext-search:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#stored-vector-indexes-and-score-scales:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#typed-text-embedding-callbacks:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#arrow-ipc:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#pyarrow-exports-and-retained-ipc-buffers:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#bind-arrow-columns-and-typed-records:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#pandas-import-and-export:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#polars-import-and-export:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#numpy-import:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#bind-ordinary-records-in-a-transaction:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#introspection:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#explain-plans:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#opening-an-existing-database-read-only:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#database-creation-options:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#schema-migration:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "GUIDE.md#maintenance:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "examples/basic_query.py": {
+      "language": "python",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            "columns:",
+            [
+              "title",
+              "year",
+              "genres"
+            ]
+          ]
+        },
+        {
+          "kind": "output",
+          "match": [
+            [
+              "Inception",
+              2010,
+              [
+                "Sci-Fi",
+                "Heist"
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "examples/txn_savepoints.py": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "docstring:velr#literal:1": {
+      "language": "python",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "answer": 1
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "docstring:velr.driver#literal:1": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "API_REFERENCE.md#literal:1": {
+      "language": "python",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "answer": 1
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#parameters-and-values:1": {
+      "language": "cypher",
+      "kind": "run",
+      "params": {
+        "people": [
+          {
+            "name": "Alice",
+            "age": 42
+          }
+        ]
+      },
+      "verify_queries": [
+        "MATCH (p:Person) RETURN p.name AS name, p.age AS age"
+      ],
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "name": "Alice",
+                "age": 42
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#lists-maps-and-subqueries:1": {
+      "language": "cypher",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "oddSquares": [
+                  1,
+                  9,
+                  25
+                ],
+                "total": 6
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#lists-maps-and-subqueries:2": {
+      "language": "cypher",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "person": {
+                  "name": "Alice",
+                  "age": 42,
+                  "active": true
+                }
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#lists-maps-and-subqueries:3": {
+      "language": "cypher",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "anyNodes": false,
+                "nodeCount": 0
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#lists-maps-and-subqueries:4": {
+      "language": "cypher",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "x": 1,
+                "doubled": 2
+              },
+              {
+                "x": 2,
+                "doubled": 4
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#strings-and-conversions:1": {
+      "language": "cypher",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "number": 1.5,
+                "enabled": true,
+                "upper": "HELLO",
+                "replaced": "heyo",
+                "prefix": "he",
+                "suffix": "lo"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#numbers-and-aggregation:1": {
+      "language": "cypher",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "count": 3,
+                "total": 6,
+                "average": 2.0,
+                "median": 2,
+                "floor": 1.0,
+                "rounded": 1.3
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#temporal-values:1": {
+      "language": "cypher",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "month": "2026-11-01",
+                "seconds": 1
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#search-clauses:1": {
+      "language": "cypher",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "title": "Graph databases",
+                "score": {
+                  "$number": {
+                    "min": 0
+                  }
+                }
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#search-clauses:2": {
+      "language": "cypher",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "text": "Connected data",
+                "score": {
+                  "$number": {
+                    "min": 0,
+                    "max": 1
+                  }
+                }
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#fulltext-search:1": {
+      "language": "cypher",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "node": {
+                  "properties": {
+                    "title": "Graph databases"
+                  }
+                },
+                "score": {
+                  "$number": {
+                    "min": 0
+                  }
+                }
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#vector-search:1": {
+      "language": "cypher",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "node": {
+                  "properties": {
+                    "text": "Connected data"
+                  }
+                },
+                "score": {
+                  "$number": {
+                    "min": -1.000001,
+                    "max": 1.000001
+                  }
+                }
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "README.md#errors-and-concurrency:1": {
+      "language": "python",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            "ParameterMissing",
+            "MissingParameter"
+          ]
+        }
+      ]
+    },
+    "GUIDE.md#threads-and-errors:2": {
+      "language": "python",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            {
+              "$regex": "^Node [0-9]+ still has [0-9]+ relationship\\(s\\)\\."
+            }
+          ]
+        },
+        {
+          "kind": "output",
+          "match": [
+            {
+              "$contains": "ConstraintVerificationFailed at runtime: DeleteConnectedNode"
+            }
+          ]
+        }
+      ]
+    },
+    "API_REFERENCE.md#literal:2": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true
+    },
+    "QUERY_LANGUAGE.md#clauses-and-expressions:1": {
+      "language": "cypher",
+      "kind": "run",
+      "setup": [
+        "CREATE (:Person {name: 'Alice'})"
+      ],
+      "verify_queries": [
+        "MATCH (:Person {name: 'Alice'})-[:INTERESTED_IN]->(t:Topic) RETURN t.name AS topic ORDER BY topic"
+      ],
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "p.name": "Alice"
+              }
+            ]
+          ]
+        },
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "topic": "cypher"
+              },
+              {
+                "topic": "graph"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#lists-maps-and-subqueries:5": {
+      "language": "cypher",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "x": 1,
+                "doubled": 2
+              },
+              {
+                "x": 2,
+                "doubled": 4
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#spatial-functions:1": {
+      "language": "cypher",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "distance": {
+                  "$number": {
+                    "min": 5,
+                    "max": 5
+                  }
+                }
+              }
+            ]
+          ]
+        }
+      ]
+    }
+  }
+}

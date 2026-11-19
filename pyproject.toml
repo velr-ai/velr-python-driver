@@ -1,0 +1,93 @@
+[build-system]
+requires = [
+  "setuptools>=80.9.0",
+  "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "velr"
+version = "0.2.63"
+description = "Python bindings for Velr, an embedded openCypher graph database built on SQLite"
+readme = {file = "PYPI_README.md", content-type = "text/markdown"}
+requires-python = ">=3.12"
+dependencies = ["cffi>=1.15"]
+
+license = "MIT AND LicenseRef-Velr-Runtime-Binary-Redistribution-License"
+license-files = ["LICENSE", "LICENSE.runtime"]
+
+classifiers = [
+  "Intended Audience :: Developers",
+  "Intended Audience :: Information Technology",
+  "Intended Audience :: Science/Research",
+
+  "Operating System :: MacOS",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX :: Linux",
+
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Rust",
+
+  "Topic :: Database",
+  "Topic :: Database :: Database Engines/Servers",
+  "Topic :: Database :: Front-Ends",
+  "Topic :: Software Development :: Embedded Systems",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+]
+
+keywords = [
+  "graph",
+  "database",
+  "cypher",
+  "opencypher",
+  "sqlite",
+  "embedded",
+  "arrow",
+  "pandas",
+  "polars",
+]
+
+[project.urls]
+Homepage = "https://velr.ai"
+Source = "https://github.com/velr-ai/velr-python-driver"
+Documentation = "https://velr-ai.github.io/velr-python-driver/velr/driver.html"
+Issues = "https://github.com/velr-ai/velr/issues"
+#Changelog = "https://github.com/velr-ai/velr/releases"
+#"Release Notes" = "https://github.com/velr-ai/velr/releases"
+Discussions = "https://github.com/velr-ai/velr/discussions"
+Examples = "https://github.com/velr-ai/velr-python-examples"
+
+[project.optional-dependencies]
+pandas = ["pandas>=2", "pyarrow>=15"]
+polars = ["polars>=0.20", "pyarrow>=15"]
+all = [
+  "pandas>=2",
+  "polars>=0.20",
+  "pyarrow>=15",
+]
+test = [
+  "pytest>=7",
+  "pytest-cov>=4",
+  "pandas>=2",
+  "polars>=0.20",
+  "pyarrow>=15",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["velr*"]
+
+[tool.setuptools.package-data]
+velr = ["_vendor/*"]
+
+[tool.setuptools.data-files]
+"share/doc/velr" = ["README.md", "GUIDE.md", "QUERY_LANGUAGE.md", "API_REFERENCE.md", "LICENSE", "LICENSE.runtime"]
+"share/doc/velr/examples" = ["examples/*.py"]

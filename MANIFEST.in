@@ -1,0 +1,6 @@
+recursive-include src/velr/_vendor *
+recursive-include src/velr *.py
+include README.md PYPI_README.md GUIDE.md QUERY_LANGUAGE.md API_REFERENCE.md
+include scripts/check_package.py
+include scripts/check_doc_examples.py scripts/doc_examples.json
+recursive-include examples *.py

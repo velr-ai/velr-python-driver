@@ -1,0 +1,12 @@
+# The runtime is installed separately for local development.
+/src/velr/_vendor/*
+!/src/velr/_vendor/__init__.py
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
