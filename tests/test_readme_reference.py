@@ -26,6 +26,12 @@ for match in re.finditer(r"```python\n(.*?)\n```", GUIDE, re.S):
 @pytest.mark.parametrize("section,code", README_EXAMPLES)
 def test_readme_python_examples(section, code, tmp_path, monkeypatch, capsys):
     monkeypatch.chdir(tmp_path)
+    if section == "Bulk import from CSV":
+        pytest.importorskip("velr_import")
+        (tmp_path / "people.csv").write_text(
+            "personId:ID(people),name:string,:LABEL\n1,Ada,Person\n",
+            encoding="utf-8",
+        )
     exec(compile(code, f"README.md: {section}", "exec"), {"__name__": "__main__"})
     if section == "Quick start":
         assert capsys.readouterr().out == "[{'name': 'Alice', 'age': 42}]\n"

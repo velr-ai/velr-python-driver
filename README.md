@@ -51,6 +51,11 @@ exceptions are also available directly from `velr`, including `QueryError`,
 `velr.guide` or `velr.query_language` do not load the native runtime; accessing a
 public driver attribute such as `velr.Velr` loads it when needed.
 
+Install `velr[gds]` to add graph analytics, then open a connection with
+`Velr.open(extensions=[Gds()])`. The package supplies `Gds` through
+`from velr_gds import Gds`. The [driver guide](GUIDE.md) has a graph analytics
+section with projection, execution, and cleanup.
+
 ## Queries and results
 
 ### In-memory, persistent, and read-only databases
@@ -334,6 +339,31 @@ covers retained values and moving an idle connection.
 
 ## Features and integrations
 
+### Quantified path patterns
+
+Use `{2}` to match two repetitions of a path segment. The node variables
+inside the segment return lists in traversal order.
+
+```python
+from velr.driver import Velr
+
+with Velr.open() as db:
+    db.run(
+        "CREATE (:Stop {name: 'Central'})-[:NEXT]->(:Stop {name: 'North'})"
+        "-[:NEXT]->(:Stop {name: 'Airport'})"
+    )
+    with db.exec_one(
+        "MATCH (:Stop {name: 'Central'}) ((departure)-[:NEXT]->(arrival)){2} "
+        "RETURN [stop IN departure | stop.name] AS departures, "
+        "[stop IN arrival | stop.name] AS arrivals"
+    ) as table:
+        print(table.to_records())
+        # [{'departures': ['Central', 'North'], 'arrivals': ['North', 'Airport']}]
+```
+
+See the [quantified path patterns reference](QUERY_LANGUAGE.md#quantified-path-patterns)
+for ranges and per-repetition filters.
+
 | Feature | Entry point |
 |---|---|
 | Fulltext search | `CREATE FULLTEXT INDEX`, then `MATCH ... SEARCH ... IN (FULLTEXT INDEX ...)` |
@@ -442,6 +472,42 @@ If a transaction has pending changes to an embedder-backed index, commit or
 roll back before searching that index. The
 [vector guide](GUIDE.md#vector-search-and-embeddings) demonstrates the full
 registration and text-query workflow.
+
+### Bulk import from CSV
+
+Use the standalone `velr-import` package to create a Velr database from local
+node and relationship CSV files. Install it alongside the query driver.
+
+```sh
+python -m pip install velr-import
+```
+
+This example writes a node CSV, imports it into a new database, and opens the
+database with the query driver after the import returns.
+
+```python
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+from velr.driver import Velr
+from velr_import import import_csv
+
+with TemporaryDirectory() as directory:
+    source = Path(directory) / "people.csv"
+    source.write_text("personId:ID(people),name:string,:LABEL\n1,Ada,Person\n", encoding="utf-8")
+    database = Path(directory) / "people.db"
+
+    report = import_csv(database, files=[source])
+    assert report.nodes == 1
+
+    with Velr.open_readonly(str(database)) as db:
+        assert db.to_records("MATCH (p:Person) RETURN p.name AS name") == [{"name": "Ada"}]
+```
+
+Use a new destination and an importer built for the same Velr release. The
+`files` argument accepts plain or compressed CSV with embedded headers.
+Use `manifest="import.toml"` to group file parts or supply separate headers.
+The `velr-import` README covers header syntax, options, and reports.
 
 ### Arrow import and export
 

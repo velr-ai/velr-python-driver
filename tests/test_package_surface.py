@@ -2,12 +2,45 @@
 
 import importlib.util
 from pathlib import Path
+import struct
 import subprocess
 import sys
 import tomllib
 import zipfile
 
 DRIVER_ROOT = Path(__file__).resolve().parents[1]
+WHEEL_PREFIX = "velr-0.0.0"
+DOCS_PREFIX = f"{WHEEL_PREFIX}.data/data/share/doc/velr/"
+DIST_INFO = f"{WHEEL_PREFIX}.dist-info/"
+
+
+def wheel_checker():
+    spec = importlib.util.spec_from_file_location(
+        "driver_package_check", DRIVER_ROOT / "scripts/check_package.py")
+    checker = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(checker)
+    return checker
+
+
+def driver_wheel_members(checker, *, source=None):
+    bindings = {wheel: f"src/{wheel}" for wheel in checker.DRIVER_FILES}
+    if source is not None:
+        bindings.update({wheel: f"src/{wheel}" for wheel in checker.OPTIONAL_DRIVER_FILES
+                         if (source / "src" / wheel).is_file()})
+    docs = {DOCS_PREFIX + name: name for name in checker.DOCUMENTATION_FILES}
+    licenses = {DIST_INFO + "licenses/" + name: name for name in ("LICENSE", "LICENSE.runtime")}
+    files = {wheel: (source / path).read_bytes() if source else b"reviewed public fixture"
+             for wheel, path in {**bindings, **docs, **licenses}.items()}
+    files[DIST_INFO + "METADATA"] = b"Metadata-Version: 2.4\nName: velr\nVersion: 0.0.0\n"
+    files[DIST_INFO + "WHEEL"] = b"Wheel-Version: 1.0\nRoot-Is-Purelib: false\n"
+    files[DIST_INFO + "RECORD"] = b""
+    return files
+
+
+def write_wheel(path, files):
+    with zipfile.ZipFile(path, "w") as archive:
+        for name, content in files.items():
+            archive.writestr(name, content)
 
 
 def test_normal_import_and_query_need_no_frontend():
@@ -47,10 +80,7 @@ def test_distribution_extras_only_cover_driver_data_integrations():
 
 
 def test_wheel_guard_rejects_stale_graph_modules_and_dependencies(tmp_path):
-    script = DRIVER_ROOT / "scripts/check_package.py"
-    spec = importlib.util.spec_from_file_location("driver_package_check", script)
-    checker = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(checker)
+    checker = wheel_checker()
     wheel = tmp_path / "velr-0.0.0-py3-none-any.whl"
     with zipfile.ZipFile(wheel, "w") as archive:
         for name in ("__init__", "driver", "_ffi"):
@@ -64,32 +94,63 @@ def test_wheel_guard_rejects_stale_graph_modules_and_dependencies(tmp_path):
 
 
 def test_wheel_guard_requires_the_guides_examples_and_linked_licenses(tmp_path):
-    spec = importlib.util.spec_from_file_location(
-        "driver_package_check", DRIVER_ROOT / "scripts/check_package.py")
-    checker = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(checker)
-    files = {f"velr/{name}.py": "" for name in (
-        "__init__", "driver", "_ffi", "guide", "query_language")}
-    files["velr/_vendor/libvelrc.dylib"] = "runtime fixture"
-    files["velr-0.0.0.dist-info/METADATA"] = "Metadata-Version: 2.4\nName: velr\nVersion: 0.0.0\n"
-    prefix = "velr-0.0.0.data/data/share/doc/velr/"
-    for name in ("README.md", "GUIDE.md", "QUERY_LANGUAGE.md", "API_REFERENCE.md",
-                 "LICENSE", "LICENSE.runtime", "examples/basic_query.py", "examples/txn_savepoints.py"):
-        files[prefix + name] = "documentation fixture"
-    wheel = tmp_path / "velr-0.0.0-py3-none-any.whl"
+    checker = wheel_checker()
+    files = driver_wheel_members(checker)
+    files["velr/_vendor/libvelrc.dylib"] = struct.pack("<IIII", 0xFEEDFACF, 0x100000C, 0, 6)
+    wheel = tmp_path / f"{WHEEL_PREFIX}-cp312-cp312-macosx_11_0_arm64.whl"
 
-    def write_wheel():
-        with zipfile.ZipFile(wheel, "w") as archive:
-            for name, content in files.items():
-                archive.writestr(name, content)
-
-    write_wheel()
+    write_wheel(wheel, files)
     assert checker.check_wheel(wheel) == []
-    del files[prefix + "GUIDE.md"]
-    del files[prefix + "examples/basic_query.py"]
-    del files[prefix + "LICENSE.runtime"]
-    write_wheel()
+    del files[DOCS_PREFIX + "GUIDE.md"]
+    del files[DOCS_PREFIX + "examples/basic_query.py"]
+    del files[DOCS_PREFIX + "LICENSE.runtime"]
+    write_wheel(wheel, files)
     errors = checker.check_wheel(wheel)
     assert any("Missing packaged documentation: GUIDE.md" in error for error in errors)
     assert any("Missing packaged documentation: examples/basic_query.py" in error for error in errors)
     assert any("Missing packaged documentation: LICENSE.runtime" in error for error in errors)
+
+
+def test_wheel_guard_rejects_implementation_source_and_an_extra_runtime(tmp_path):
+    checker = wheel_checker()
+    files = driver_wheel_members(checker)
+    runtime = "velr/_vendor/libvelrc.so"
+    files[runtime] = b"\x7fELF\x02\x01" + bytes(10) + struct.pack("<HH", 3, 62)
+    files["velr/"] = files["velr/_vendor/"] = b""
+    wheel = tmp_path / f"{WHEEL_PREFIX}-cp312-cp312-manylinux_2_35_x86_64.whl"
+    write_wheel(wheel, files)
+    assert checker.check_wheel(wheel) == []
+
+    foreign_files = (
+        "rust/velr-core/src/lib.rs", "velr_gds/algorithm.rs", "velr_import/_native.py",
+        "velr/_vendor/libvelr_gds.so", "velr/_vendor/velrc.dll", "velr/_vendor/private/",
+    )
+    write_wheel(wheel, {**files, **dict.fromkeys(foreign_files, b"implementation")})
+    errors = checker.check_wheel(wheel)
+    assert all(any(name in error for error in errors) for name in foreign_files)
+
+    files[runtime] = b"fn confidential() {}"
+    write_wheel(wheel, files)
+    assert any("does not match the wheel platform" in error for error in checker.check_wheel(wheel))
+
+
+def test_release_wheel_guard_checks_reviewed_files_across_line_endings(tmp_path):
+    checker = wheel_checker()
+    files = driver_wheel_members(checker, source=DRIVER_ROOT)
+    files["velr/_vendor/velrc.dll"] = (
+        b"MZ" + bytes(58) + struct.pack("<I", 64) + b"PE\0\0\x64\x86" + bytes(16) + b"\x00\x20"
+    )
+    readme = DOCS_PREFIX + "README.md"
+    # Exercise different line endings even when Git checks out the README with CRLF.
+    if b"\r\n" in files[readme]:
+        files[readme] = files[readme].replace(b"\r\n", b"\n")
+    else:
+        files[readme] = files[readme].replace(b"\n", b"\r\n")
+    wheel = tmp_path / f"{WHEEL_PREFIX}-cp312-cp312-win_amd64.whl"
+    write_wheel(wheel, files)
+    assert checker.check_wheel(wheel, source=DRIVER_ROOT) == []
+
+    overwritten = DOCS_PREFIX + "examples/basic_query.py"
+    files[overwritten] = b"unreviewed implementation with an approved filename"
+    write_wheel(wheel, files)
+    assert any(overwritten in error for error in checker.check_wheel(wheel, source=DRIVER_ROOT))

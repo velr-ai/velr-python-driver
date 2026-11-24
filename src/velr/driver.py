@@ -79,8 +79,9 @@ import warnings
 import weakref
 
 from ._ffi import ffi, lib
+from .extensions import Extension
 
-__all__ = ['Path', 'ErrorPosition', 'VelrError', 'QueryError', 'CypherSyntaxError', 'CypherSemanticError', 'CypherTypeError', 'ParameterError', 'ProcedureNotFoundError', 'EntityNotFoundError', 'ConstraintError', 'CypherArithmeticError', 'DatabaseBusyError', 'ReadOnlyError', 'MigrationRequiredError', 'HandleStateError', 'QueryCancelled', 'DeadlineExceeded', 'CancellationToken', 'MigrationReport', 'Cell', 'VectorEmbeddingField', 'VectorEmbeddingInput', 'ExplainPlanMeta', 'ExplainStepMeta', 'ExplainStatementMeta', 'ExplainStatement', 'ExplainStep', 'ExplainPlan', 'ExplainTrace', 'Velr', 'Stream', 'StreamTx', 'Table', 'Rows', 'Savepoint', 'VelrTx']
+__all__ = ['Path', 'ErrorPosition', 'VelrError', 'QueryError', 'CypherSyntaxError', 'CypherSemanticError', 'CypherTypeError', 'ParameterError', 'ProcedureNotFoundError', 'EntityNotFoundError', 'ConstraintError', 'CypherArithmeticError', 'DatabaseBusyError', 'ReadOnlyError', 'MigrationRequiredError', 'HandleStateError', 'QueryCancelled', 'DeadlineExceeded', 'CancellationToken', 'MigrationReport', 'Cell', 'VectorEmbeddingField', 'VectorEmbeddingInput', 'ExplainPlanMeta', 'ExplainStepMeta', 'ExplainStatementMeta', 'ExplainStatement', 'ExplainStep', 'ExplainPlan', 'ExplainTrace', 'Extension', 'Velr', 'Stream', 'StreamTx', 'Table', 'Rows', 'Savepoint', 'VelrTx']
 
 if TYPE_CHECKING:
     import pyarrow as pa  # type: ignore[import-not-found]
@@ -2747,7 +2748,12 @@ class Velr(_NativeHandle):
         self._children.close()
 
     @classmethod
-    def open(cls, path: Optional[str] = None) -> "Velr":
+    def open(
+        cls,
+        path: Optional[str] = None,
+        *,
+        extensions: Sequence[Extension] = (),
+    ) -> "Velr":
         """Open a writable in-memory or file-backed Velr database.
 
         Parameters
@@ -2759,6 +2765,13 @@ class Velr(_NativeHandle):
             creates one; its parent directory must exist.
             An uninitialized SQLite file containing tables or other schema objects
             is rejected without changing its contents or journal mode.
+        extensions:
+            Native extensions to enable on this connection. For GDS, install
+            the matching ``velr[gds]`` release and pass
+            ``extensions=[velr_gds.Gds()]``. Extensions load in the current
+            process and make their procedures available to ordinary Cypher.
+            The named graph catalog and its memory budget belong to this
+            connection. This option is available on ``open()``.
 
         Returns
         -------
@@ -2769,18 +2782,32 @@ class Velr(_NativeHandle):
         and explicitly migrate through a writable connection before graph queries or
         transactions. Use ``current_schema_version()`` rather than assuming a version.
 
-        Database/open/schema failures raise ``VelrError``. Invalid Python path objects
-        can raise standard errors such as ``AttributeError`` when not encodable; invalid
-        Unicode raises ``UnicodeEncodeError``. NUL-containing paths are unsupported;
-        this method does not validate them before opening.
+        Database, schema, and extension loading failures raise ``VelrError``.
+        Invalid Python path objects can raise standard errors such as
+        ``AttributeError`` when not encodable. Invalid Unicode raises
+        ``UnicodeEncodeError``. Paths must not contain NUL.
         """
+        if not isinstance(extensions, Sequence) or isinstance(extensions, (str, bytes, bytearray)):
+            raise TypeError("extensions must be a sequence of Extension descriptors")
         out_db = ffi.new("velr_db **")
         out_err = ffi.new("char **")
-        rc = lib.velr_open(
-            path.encode("utf-8") if path is not None else ffi.NULL,
-            out_db,
-            out_err,
-        )
+        path_arg = path.encode("utf-8") if path is not None else ffi.NULL
+        if extensions:
+            if path is not None and "\x00" in path:
+                raise VelrError("path contains NUL")
+            descriptors = tuple(extensions)
+            if not all(isinstance(extension, Extension) for extension in descriptors):
+                raise TypeError("extensions must contain only Extension descriptors")
+            paths = [ffi.new("char[]", str(extension.library_path).encode("utf-8"))
+                     for extension in descriptors]
+            configs = ffi.new("velr_extension_config[]", [
+                (library, extension.memory_limit_bytes)
+                for library, extension in zip(paths, descriptors, strict=True)
+            ])
+            open_with_extensions = _runtime_symbol("velr_open_with_extensions")
+            rc = open_with_extensions(path_arg, configs, len(descriptors), out_db, out_err)
+        else:
+            rc = lib.velr_open(path_arg, out_db, out_err)
         _check(rc, out_err)
         if out_db[0] == ffi.NULL:
             raise VelrError("velr_open returned null db")

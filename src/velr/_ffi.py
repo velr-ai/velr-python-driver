@@ -214,6 +214,16 @@ void velr_free(uint8_t* p, size_t len);
 /* DB                                                                    */
 /* --------------------------------------------------------------------- */
 velr_code velr_open(const char* path_or_null, velr_db** out_db, char** out_err);
+typedef struct velr_extension_config {
+    const char* path;
+    size_t memory_limit_bytes;
+} velr_extension_config;
+velr_code velr_open_with_extensions(
+    const char* path_or_null,
+    const velr_extension_config* extensions,
+    size_t extension_count,
+    velr_db** out_db,
+    char** out_err);
 velr_code velr_create(
     const char* path_or_null,
     const char* const* inline_edge_properties,

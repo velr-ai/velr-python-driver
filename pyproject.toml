@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "velr"
-version = "0.2.63"
+version = "0.2.65"
 description = "Python bindings for Velr, an embedded openCypher graph database built on SQLite"
 readme = {file = "PYPI_README.md", content-type = "text/markdown"}
 requires-python = ">=3.12"
@@ -86,7 +86,7 @@ where = ["src"]
 include = ["velr*"]
 
 [tool.setuptools.package-data]
-velr = ["_vendor/*"]
+velr = ["_vendor/libvelrc.so", "_vendor/libvelrc.dylib", "_vendor/velrc.dll"]
 
 [tool.setuptools.data-files]
 "share/doc/velr" = ["README.md", "GUIDE.md", "QUERY_LANGUAGE.md", "API_REFERENCE.md", "LICENSE", "LICENSE.runtime"]

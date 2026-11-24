@@ -10,6 +10,7 @@ import doctest
 import hashlib
 import json
 import math
+import os
 from pathlib import Path
 import re
 import shutil
@@ -318,9 +319,10 @@ def inventory(package: Path, manifest: dict) -> tuple[list[dict], dict]:
 
 
 BOOTSTRAP = r'''
-import ast, builtins, dataclasses, datetime, doctest, json, math, pathlib, runpy, sys
+import ast, builtins, dataclasses, datetime, doctest, json, math, os, pathlib, runpy, sys
 site, payload_path, result_path = map(pathlib.Path, sys.argv[1:4])
 sys.path.insert(0, str(site))
+os.environ.pop("VELR_IMPORT_LIBRARY", None)
 import velr, velr.driver
 assert pathlib.Path(velr.__file__).resolve().is_relative_to(site.resolve()), velr.__file__
 assert pathlib.Path(velr.driver.__file__).resolve().is_relative_to(site.resolve()), velr.driver.__file__
@@ -350,6 +352,9 @@ builtins.print = captured_print
 try:
     if payload.get("preflight"):
         import numpy, pandas, polars, pyarrow
+        if payload.get("importer"):
+            import velr_import
+            assert pathlib.Path(velr_import.__file__).resolve().is_relative_to(site.resolve()), velr_import.__file__
         with velr.driver.Velr.open() as db:
             assert db.to_records("RETURN 42 AS value") == [{"value": 42}]
         original_print(json.dumps({"velr": velr.__file__, "driver": velr.driver.__file__, "numpy": numpy.__version__, "pandas": pandas.__version__, "polars": polars.__version__, "pyarrow": pyarrow.__version__}))
@@ -449,20 +454,27 @@ def check_examples(args) -> dict:
     if args.wheel is None:
         raise ValueError("Full verification requires --wheel PATH; source imports are never used")
     report["wheel"] = verify_wheel(args.wheel.resolve(strict=True), PACKAGE)
+    wheels = [str(args.wheel.resolve())]
+    if args.importer_wheel_dir is not None:
+        importers = sorted(args.importer_wheel_dir.glob("velr_import-*.whl"))
+        if len(importers) != 1:
+            raise ValueError(f"Expected one standalone importer wheel in {args.importer_wheel_dir}, got {importers}")
+        report["importer_wheel"] = str(importers[0].resolve(strict=True))
+        wheels.append(report["importer_wheel"])
     consumer = Path(tempfile.mkdtemp(prefix="velr-python-doc-examples-"))
     report["consumer"] = str(consumer)
     passed = False
     try:
         site = consumer / "installed"
         install = run_process([*ISOLATED_PYTHON, "-m", "pip", "install", "--no-deps", "--no-compile",
-                               "--target", str(site), str(args.wheel.resolve())], consumer, timeout=120)
+                               "--target", str(site), *wheels], consumer, timeout=120)
         report["install"] = install
         if install["returncode"]:
             raise RuntimeError(f"Cannot install verification wheel: {install}")
         bootstrap = consumer / "bootstrap.py"
         bootstrap.write_text(BOOTSTRAP, encoding="utf-8")
         payload = consumer / "preflight.json"
-        payload.write_text(json.dumps({"preflight": True}), encoding="utf-8")
+        payload.write_text(json.dumps({"preflight": True, "importer": "importer_wheel" in report}), encoding="utf-8")
         preflight = run_process([*ISOLATED_PYTHON, str(bootstrap), str(site), str(payload), str(consumer / "preflight-output.json")], consumer)
         report["preflight"] = preflight
         if preflight["returncode"]:
@@ -470,6 +482,11 @@ def check_examples(args) -> dict:
         for index, example in enumerate(examples):
             entry = details["entries"][example["id"]]
             if entry["kind"] != "run":
+                continue
+            if entry.get("requires_importer") and "importer_wheel" not in report:
+                reason = "no standalone importer wheel specified"
+                report["results"].append({"id": example["id"], "status": "skipped", "reason": reason})
+                print(f"SKIPPED {example['id']}: {reason}", flush=True)
                 continue
             directory = consumer / f"case-{index:03}"
             directory.mkdir()
@@ -498,7 +515,7 @@ def check_examples(args) -> dict:
             print(f"{result['status'].upper()} {example['id']} ({result['seconds']}s)", flush=True)
             if result["status"] == "failed":
                 print(result.get("failure"), result["stdout"], result["stderr"], file=sys.stderr)
-        failures = [result for result in report["results"] if result["status"] != "passed"]
+        failures = [result for result in report["results"] if result["status"] == "failed"]
         if failures:
             raise AssertionError(f"{len(failures)} documentation examples failed; evidence: {consumer}")
         passed = True
@@ -517,11 +534,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--inventory-only", action="store_true", help="stdlib-only inventory, syntax, assertion, and freshness checks")
     parser.add_argument("--wheel", type=Path, help="compatible built wheel to install and test")
+    parser.add_argument("--importer-wheel-dir", type=Path, default=os.environ.get("VELR_IMPORT_WHEEL_DIR") or None,
+                        help="directory containing the standalone importer wheel for the CSV example")
     parser.add_argument("--report", type=Path)
     parser.add_argument("--keep-temp", action="store_true")
     args = parser.parse_args()
     report = check_examples(args)
-    print(f"Accounted for {len(report['inventory'])} examples/reference blocks and {len(report['mirrored'])} verified mirrors; executed {len(report['results'])} programs.")
+    passed = sum(result["status"] == "passed" for result in report["results"])
+    print(f"Accounted for {len(report['inventory'])} examples/reference blocks and {len(report['mirrored'])} verified mirrors; executed {passed} programs.")
     return 0
 
 

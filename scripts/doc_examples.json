@@ -127,6 +127,29 @@
       "kind": "run",
       "inline_assertions": true
     },
+    "README.md#quantified-path-patterns:1": {
+      "language": "python",
+      "kind": "run",
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "departures": [
+                  "Central",
+                  "North"
+                ],
+                "arrivals": [
+                  "North",
+                  "Airport"
+                ]
+              }
+            ]
+          ]
+        }
+      ]
+    },
     "README.md#fulltext-search:1": {
       "language": "python",
       "kind": "run",
@@ -171,6 +194,17 @@
           ]
         }
       ]
+    },
+    "README.md#bulk-import-from-csv:1": {
+      "language": "sh",
+      "kind": "installation",
+      "reason": "Install the separately distributed CSV importer used by the next example."
+    },
+    "README.md#bulk-import-from-csv:2": {
+      "language": "python",
+      "kind": "run",
+      "inline_assertions": true,
+      "requires_importer": true
     },
     "README.md#arrow-import-and-export:1": {
       "language": "python",
@@ -295,6 +329,31 @@
       "language": "python",
       "kind": "run",
       "inline_assertions": true
+    },
+    "GUIDE.md#quantified-path-patterns:1": {
+      "language": "cypher",
+      "setup": [
+        "CREATE (:Stop {name:'Central', open:true})-[:NEXT]->(:Stop {name:'North', open:true})-[:NEXT]->(:Stop {name:'Airport', open:false})"
+      ],
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "stops": [
+                  "North"
+                ],
+                "destination": "North"
+              }
+            ]
+          ]
+        }
+      ],
+      "kind": "run",
+      "params": {
+        "origin": "Central"
+      }
     },
     "GUIDE.md#fulltext-analyzers-and-pagination:1": {
       "language": "python",
@@ -486,6 +545,51 @@
         }
       ]
     },
+    "QUERY_LANGUAGE.md#quantified-path-patterns:1": {
+      "language": "cypher",
+      "kind": "run",
+      "setup": [
+        "CREATE ()-[:R]->()-[:R]->()"
+      ],
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "hops": 2
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "QUERY_LANGUAGE.md#quantified-path-patterns:2": {
+      "language": "cypher",
+      "kind": "run",
+      "setup": [
+        "CREATE (:Station {name:'Central', open:true})-[:NEXT]->(:Station {name:'North', open:true})-[:NEXT]->(:Station {name:'Airport', open:false})"
+      ],
+      "checks": [
+        {
+          "kind": "output",
+          "match": [
+            [
+              {
+                "departures": [],
+                "arrival": "Central"
+              },
+              {
+                "departures": [
+                  "Central"
+                ],
+                "arrival": "North"
+              }
+            ]
+          ]
+        }
+      ]
+    },
     "QUERY_LANGUAGE.md#lists-maps-and-subqueries:1": {
       "language": "cypher",
       "kind": "run",
@@ -547,18 +651,17 @@
     "QUERY_LANGUAGE.md#lists-maps-and-subqueries:4": {
       "language": "cypher",
       "kind": "run",
+      "setup": [
+        "CREATE (p:Person {name: 'Alice'})-[:KNOWS]->(:Contact {name: 'Zoe'}), (p)-[:KNOWS]->(:Contact {name: 'Bob'})"
+      ],
       "checks": [
         {
           "kind": "output",
           "match": [
             [
               {
-                "x": 1,
-                "doubled": 2
-              },
-              {
-                "x": 2,
-                "doubled": 4
+                "person": "Alice",
+                "friends": ["Bob", "Zoe"]
               }
             ]
           ]

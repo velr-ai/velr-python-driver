@@ -836,7 +836,7 @@ methods rather than calling the handle classes' constructors directly.
 
 ```python
 @classmethod
-open(path: Optional[str]=None) -> 'Velr'
+open(path: Optional[str]=None, *, extensions: Sequence[Extension]=()) -> 'Velr'
 ```
 
 Open a writable in-memory or file-backed Velr database.
@@ -850,6 +850,13 @@ path:
     creates one; its parent directory must exist.
     An uninitialized SQLite file containing tables or other schema objects
     is rejected without changing its contents or journal mode.
+extensions:
+    Native extensions to enable on this connection. For GDS, install
+    the matching ``velr[gds]`` release and pass
+    ``extensions=[velr_gds.Gds()]``. Extensions load in the current
+    process and make their procedures available to ordinary Cypher.
+    The named graph catalog and its memory budget belong to this
+    connection. This option is available on ``open()``.
 
 Returns
 -------
@@ -860,10 +867,10 @@ Opening does not migrate supported older formats. Inspect ``needs_migration()``
 and explicitly migrate through a writable connection before graph queries or
 transactions. Use ``current_schema_version()`` rather than assuming a version.
 
-Database/open/schema failures raise ``VelrError``. Invalid Python path objects
-can raise standard errors such as ``AttributeError`` when not encodable; invalid
-Unicode raises ``UnicodeEncodeError``. NUL-containing paths are unsupported;
-this method does not validate them before opening.
+Database, schema, and extension loading failures raise ``VelrError``.
+Invalid Python path objects can raise standard errors such as
+``AttributeError`` when not encodable. Invalid Unicode raises
+``UnicodeEncodeError``. Paths must not contain NUL.
 
 #### velr.driver.Velr.create
 

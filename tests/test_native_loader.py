@@ -36,7 +36,7 @@ class NativeLoaderTests(unittest.TestCase):
             f"python -m pip install --force-reinstall {project['name']}", result.stderr,
         )
         self.assertIn("velr: failed to locate/load the native library", result.stderr)
-        self.assertIn(str(self.root / "_vendor"), result.stderr)
+        self.assertIn(str((self.root / "_vendor").resolve()), result.stderr)
         self.assertNotIn("velrpy", result.stderr)
         return result.stderr
 
@@ -58,7 +58,7 @@ class NativeLoaderTests(unittest.TestCase):
         candidate.write_bytes(b"invalid native library")
 
         error = self.failed_import()
-        self.assertIn(str(candidate), error)
+        self.assertIn(str(candidate.resolve()), error)
         self.assertIn("Last dlopen error:", error)
         self.assertNotIn("<no files present>", error)
 

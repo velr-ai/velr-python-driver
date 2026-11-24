@@ -55,7 +55,7 @@ __all__ = [
     "DeadlineExceeded", "CancellationToken", "MigrationReport", "Cell",
     "VectorEmbeddingField", "VectorEmbeddingInput", "ExplainPlanMeta",
     "ExplainStepMeta", "ExplainStatementMeta", "ExplainStatement", "ExplainStep",
-    "ExplainPlan", "ExplainTrace", "Velr", "Stream", "StreamTx", "Table", "Rows",
+    "ExplainPlan", "ExplainTrace", "Extension", "Velr", "Stream", "StreamTx", "Table", "Rows",
     "Savepoint", "VelrTx",
 ]
 
@@ -99,6 +99,7 @@ if _TYPE_CHECKING:
         VelrError as VelrError,
         VelrTx as VelrTx,
     )
+    from .extensions import Extension as Extension
 
 
 def __getattr__(name: str) -> _Any:
@@ -109,7 +110,8 @@ def __getattr__(name: str) -> _Any:
     """
     if name not in __all__:
         raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
-    value = getattr(_import_module(".driver", __name__), name)
+    module = ".extensions" if name == "Extension" else ".driver"
+    value = getattr(_import_module(module, __name__), name)
     globals()[name] = value
     return value
 

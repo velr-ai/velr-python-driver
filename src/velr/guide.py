@@ -15,6 +15,29 @@ imports of `velr.guide` and `velr.query_language` leave the native runtime unloa
 It loads when a public driver attribute is requested, such as in
 `from velr import Velr, QueryError`.
 
+## Graph analytics
+
+Install the GDS add-on with `python -m pip install 'velr[gds]'`. It installs
+the binary GDS package for the same Velr release. Import `Gds` from `velr_gds`
+and open a connection with `Velr.open(extensions=[Gds()])`. Pass your database
+path as the first argument for a file-backed graph.
+
+1. On the open connection, use `db.run("CALL gds.graph.project('people', 'Person', 'KNOWS')")`
+   to project the `Person` nodes and their `KNOWS` relationships.
+2. Call `db.exec_one("CALL gds.wcc.stream('people') YIELD nodeId, componentId RETURN nodeId, componentId")`
+   to get the connected components. Use a context manager for the result table
+   and collect small results with `table.to_records()`. For large results,
+   use `table.iter_rows()` to consume rows incrementally.
+3. Reuse the connection for further algorithms on the projection. Release it
+   with `db.run("CALL gds.graph.drop('people')")` or close the connection.
+   Run projection and drop outside explicit database transactions.
+
+GDS is enabled per connection through `Velr.open()`. Each enabled connection
+has its own named graphs and a 512 MiB budget for managed GDS allocations. Pass
+`Gds(memory_limit_bytes=1024 * 1024 * 1024)` for a 1 GiB budget.
+See the [GDS package quick start](https://pypi.org/project/velr-gds/) for
+a complete program.
+
 ## Query parameter binding
 
 Use `$name` in Cypher and omit `$` from `params` keys. Values are bound as data,
@@ -419,6 +442,25 @@ with Velr.open() as db:
 assert records == [{"name": "Alice"}, {"name": "Grace"}]
 print(records)
 ```
+
+## Quantified path patterns
+
+Bind the starting stop name as the `origin` query parameter. The example
+follows one to three consecutive `NEXT` relationships, checking the arrival
+node at every repetition.
+
+```cypher
+MATCH (origin:Stop {name: $origin})
+OPTIONAL MATCH (origin) ((departure)-[:NEXT]->(arrival WHERE arrival.open = true)){1,3} (destination)
+RETURN [stop IN arrival | stop.name] AS stops, destination.name AS destination
+ORDER BY size(stops)
+```
+
+The `arrival` group contains the arrival nodes in traversal order.
+`OPTIONAL MATCH` returns null for the group and destination when no path
+qualifies. Use a zero lower bound such as `{0,3}` when a match at the starting
+stop should return an empty group. See [quantified path patterns](query_language.html#quantified-path-patterns)
+for bound and predicate syntax.
 
 ## SEARCH clause
 

@@ -1,4 +1,4 @@
-recursive-include src/velr/_vendor *
+include src/velr/_vendor/libvelrc.so src/velr/_vendor/libvelrc.dylib src/velr/_vendor/velrc.dll
 recursive-include src/velr *.py
 include README.md PYPI_README.md GUIDE.md QUERY_LANGUAGE.md API_REFERENCE.md
 include scripts/check_package.py
