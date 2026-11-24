@@ -30,6 +30,7 @@
             <ul>
   <li><a href="#python-driver-guide">Python driver guide</a>
   <ul>
+    <li><a href="#graph-analytics">Graph analytics</a></li>
     <li><a href="#query-parameter-binding">Query parameter binding</a></li>
     <li><a href="#query-execution">Query execution</a></li>
     <li><a href="#streaming-multiple-result-tables">Streaming multiple result tables</a></li>
@@ -37,6 +38,7 @@
     <li><a href="#query-cancellation-and-timeouts">Query cancellation and timeouts</a></li>
     <li><a href="#results-lifetimes-and-threads">Results, lifetimes, and threads</a></li>
     <li><a href="#transactions-and-savepoints">Transactions and savepoints</a></li>
+    <li><a href="#quantified-path-patterns">Quantified path patterns</a></li>
     <li><a href="#search-clause">SEARCH clause</a></li>
     <li><a href="#fulltext-search">Fulltext search</a></li>
     <li><a href="#vector-search-and-embeddings">Vector search and embeddings</a></li>
@@ -83,6 +85,31 @@ Polars, and NumPy examples name their additional requirements in their sections.
 imports of <code><a href="">velr.guide</a></code> and <code><a href="query_language.html">velr.query_language</a></code> leave the native runtime unloaded.
 It loads when a public driver attribute is requested, such as in
 <code>from velr import Velr, QueryError</code>.</p>
+
+<h2 id="graph-analytics">Graph analytics</h2>
+
+<p>Install the GDS add-on with <code>python -m pip install 'velr[gds]'</code>. It installs
+the binary GDS package for the same Velr release. Import <code>Gds</code> from <code>velr_gds</code>
+and open a connection with <code>Velr.open(extensions=[Gds()])</code>. Pass your database
+path as the first argument for a file-backed graph.</p>
+
+<ol>
+<li>On the open connection, use <code>db.run("CALL gds.graph.project('people', 'Person', 'KNOWS')")</code>
+to project the <code>Person</code> nodes and their <code>KNOWS</code> relationships.</li>
+<li>Call <code>db.exec_one("CALL gds.wcc.stream('people') YIELD nodeId, componentId RETURN nodeId, componentId")</code>
+to get the connected components. Use a context manager for the result table
+and collect small results with <code>table.to_records()</code>. For large results,
+use <code>table.iter_rows()</code> to consume rows incrementally.</li>
+<li>Reuse the connection for further algorithms on the projection. Release it
+with <code>db.run("CALL gds.graph.drop('people')")</code> or close the connection.
+Run projection and drop outside explicit database transactions.</li>
+</ol>
+
+<p>GDS is enabled per connection through <code>Velr.open()</code>. Each enabled connection
+has its own named graphs and a 512 MiB budget for managed GDS allocations. Pass
+<code>Gds(memory_limit_bytes=1024 * 1024 * 1024)</code> for a 1 GiB budget.
+See the <a href="https://pypi.org/project/velr-gds/">GDS package quick start</a> for
+a complete program.</p>
 
 <h2 id="query-parameter-binding">Query parameter binding</h2>
 
@@ -530,6 +557,26 @@ named savepoints and retains their surviving changes.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>
 </code></pre>
 </div>
+
+<h2 id="quantified-path-patterns">Quantified path patterns</h2>
+
+<p>Bind the starting stop name as the <code>origin</code> query parameter. The example
+follows one to three consecutive <code>NEXT</code> relationships, checking the arrival
+node at every repetition.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">origin</span><span class="p">:</span><span class="n">Stop</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">origin</span><span class="p">})</span>
+<span class="k">OPTIONAL</span><span class="w"> </span><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">origin</span><span class="p">)</span><span class="w"> </span><span class="p">((</span><span class="n">departure</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">NEXT</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">arrival</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">arrival</span><span class="p">.</span><span class="n">open</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">true</span><span class="p">)){</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">}</span><span class="w"> </span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="o">[</span><span class="n">stop</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="n">arrival</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="n">stop</span><span class="p">.</span><span class="n">name</span><span class="o">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">stops</span><span class="p">,</span><span class="w"> </span><span class="n">destination</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">destination</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">size</span><span class="p">(</span><span class="n">stops</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>The <code>arrival</code> group contains the arrival nodes in traversal order.
+<code>OPTIONAL MATCH</code> returns null for the group and destination when no path
+qualifies. Use a zero lower bound such as <code>{0,3}</code> when a match at the starting
+stop should return an empty group. See <a href="../velr/query_language.html#quantified-path-patterns">quantified path patterns</a>
+for bound and predicate syntax.</p>
 
 <h2 id="search-clause">SEARCH clause</h2>
 

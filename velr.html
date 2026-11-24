@@ -479,6 +479,21 @@
 
             </li>
             <li>
+                    <a class="class" href="#Extension">Extension</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Extension.__init__">Extension</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Extension.library_path">library_path</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Extension.memory_limit_bytes">memory_limit_bytes</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
                     <a class="class" href="#Velr">Velr</a>
                             <ul class="memberlist">
                         <li>
@@ -3095,6 +3110,61 @@ this method returns <code>None</code>.</p>
 
                             </div>
                 </section>
+                <section id="Extension">
+                    <div class="attr class">
+                    <div class="decorator decorator-dataclass">@dataclass(frozen=True, slots=True)</div>
+
+    <span class="def">class</span>
+    <span class="name">Extension</span>:
+
+        
+    </div>
+    <a class="headerlink" href="#Extension"></a>
+    
+            <div class="docstring"><p>An installed native extension to load in the Velr process.</p>
+
+<p>Pass the descriptor to <code><a href="#Velr.open">Velr.open</a>(extensions=[...])</code>. Library paths are
+resolved when the descriptor is created. Supply only a library you trust
+to execute in your application. The library receives the positive
+<code><a href="#Extension.memory_limit_bytes">memory_limit_bytes</a></code> budget at open time.</p>
+</div>
+
+
+                            <div id="Extension.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">Extension</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">library_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>, </span><span class="param"><span class="n">memory_limit_bytes</span><span class="p">:</span> <span class="nb">int</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Extension.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="Extension.library_path" class="classattr">
+                                <div class="attr variable">
+            <span class="name">library_path</span><span class="annotation">: str | os.PathLike[str]</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Extension.library_path"></a>
+    
+    
+
+                            </div>
+                            <div id="Extension.memory_limit_bytes" class="classattr">
+                                <div class="attr variable">
+            <span class="name">memory_limit_bytes</span><span class="annotation">: int</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Extension.memory_limit_bytes"></a>
+    
+    
+
+                            </div>
+                </section>
                 <section id="Velr">
                     <div class="attr class">
             
@@ -3138,7 +3208,7 @@ methods rather than calling the handle classes' constructors directly.</p>
                     <div class="decorator decorator-classmethod">@classmethod</div>
 
         <span class="def">def</span>
-        <span class="name">open</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span>, </span><span class="param"><span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="n"><a href="#Velr">Velr</a></span>:</span></span>
+        <span class="name">open</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">cls</span>,</span><span class="param">	<span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">extensions</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n"><a href="#Extension">Extension</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span></span><span class="return-annotation">) -> <span class="n"><a href="#Velr">Velr</a></span>:</span></span>
 
         
     </div>
@@ -3155,6 +3225,12 @@ for a private in-memory database. Convert filesystem path objects with
 creates one; its parent directory must exist.
 An uninitialized SQLite file containing tables or other schema objects
 is rejected without changing its contents or journal mode.</li>
+<li><strong>extensions:</strong>: Native extensions to enable on this connection. For GDS, install
+the matching <code>velr[gds]</code> release and pass
+<code>extensions=[velr_gds.Gds()]</code>. Extensions load in the current
+process and make their procedures available to ordinary Cypher.
+The named graph catalog and its memory budget belong to this
+connection. This option is available on <code><a href="#Velr.open">open()</a></code>.</li>
 </ul>
 
 <h6 id="returns">Returns</h6>
@@ -3164,10 +3240,10 @@ is rejected without changing its contents or journal mode.</li>
 <li><strong>Opening does not migrate supported older formats. Inspect <code><a href="#Velr.needs_migration">needs_migration()</a></code></strong></li>
 <li><strong>and explicitly migrate through a writable connection before graph queries or</strong></li>
 <li><strong>transactions. Use <code><a href="#Velr.current_schema_version">current_schema_version()</a></code> rather than assuming a version.</strong></li>
-<li><strong>Database/open/schema failures raise <code><a href="#VelrError">VelrError</a></code>. Invalid Python path objects</strong></li>
-<li><strong>can raise standard errors such as <code>AttributeError</code> when not encodable; invalid</strong></li>
-<li><strong>Unicode raises <code>UnicodeEncodeError</code>. NUL-containing paths are unsupported;</strong></li>
-<li><strong>this method does not validate them before opening.</strong></li>
+<li><strong>Database, schema, and extension loading failures raise <code><a href="#VelrError">VelrError</a></code>.</strong></li>
+<li><strong>Invalid Python path objects can raise standard errors such as</strong></li>
+<li><strong><code>AttributeError</code> when not encodable. Invalid Unicode raises</strong></li>
+<li><strong><code>UnicodeEncodeError</code>. Paths must not contain NUL.</strong></li>
 </ul>
 </div>
 
@@ -3178,7 +3254,7 @@ is rejected without changing its contents or journal mode.</li>
                     <div class="decorator decorator-classmethod">@classmethod</div>
 
         <span class="def">def</span>
-        <span class="name">create</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">cls</span>,</span><span class="param">	<span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">inline_edge_properties</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span></span><span class="return-annotation">) -> <span class="n"><a href="#Velr">Velr</a></span>:</span></span>
+        <span class="name">create</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">cls</span>,</span><span class="param">	<span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">inline_edge_properties</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span></span><span class="return-annotation">) -> <span class="n"><a href="#Velr">Velr</a></span>:</span></span>
 
         
     </div>
@@ -3438,7 +3514,7 @@ callback raises, its original exception is retained as <code>error.__cause__</co
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">run</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
+        <span class="name">run</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
 
         
     </div>
@@ -3502,7 +3578,7 @@ deadlines, or cancellation.</li>
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">execute</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
+        <span class="name">execute</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
 
         
     </div>
@@ -3521,7 +3597,7 @@ deadlines, or cancellation.</li>
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">exec</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="n"><a href="#Stream">Stream</a></span>:</span></span>
+        <span class="name">exec</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="n"><a href="#Stream">Stream</a></span>:</span></span>
 
         
     </div>
@@ -3592,7 +3668,7 @@ required for requested row caps, parameters, deadlines, or cancellation.</li>
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">exec_one</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="n"><a href="#Table">Table</a></span>:</span></span>
+        <span class="name">exec_one</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="n"><a href="#Table">Table</a></span>:</span></span>
 
         
     </div>
@@ -4083,7 +4159,7 @@ manager to ensure cleanup, especially when stopping before exhaustion.</p>
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">next_table</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="#Table">Table</a></span> <span class="o">|</span> <span class="kc">None</span>:</span></span>
+        <span class="name">next_table</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="#Table">Table</a></span><span class="p">]</span>:</span></span>
 
         
     </div>
@@ -4171,7 +4247,7 @@ manager to ensure cleanup, especially when stopping before exhaustion.</p>
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">next_table</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="#Table">Table</a></span> <span class="o">|</span> <span class="kc">None</span>:</span></span>
+        <span class="name">next_table</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n">Optional</span><span class="p">[</span><span class="n"><a href="#Table">Table</a></span><span class="p">]</span>:</span></span>
 
         
     </div>
@@ -4839,7 +4915,7 @@ end raise <code><a href="#VelrError">VelrError</a></code>. Do not share transact
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">run</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
+        <span class="name">run</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
 
         
     </div>
@@ -4903,7 +4979,7 @@ support required for requested row caps, parameters, deadlines, or cancellation.
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">execute</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
+        <span class="name">execute</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="kc">None</span>:</span></span>
 
         
     </div>
@@ -4967,7 +5043,7 @@ support required for requested row caps, parameters, deadlines, or cancellation.
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">exec</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="n"><a href="#StreamTx">StreamTx</a></span>:</span></span>
+        <span class="name">exec</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="n"><a href="#StreamTx">StreamTx</a></span>:</span></span>
 
         
     </div>
@@ -5035,7 +5111,7 @@ support required for requested row caps, parameters, deadlines, or cancellation.
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">exec_one</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="n"><a href="#Table">Table</a></span>:</span></span>
+        <span class="name">exec_one</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">cypher</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	<span class="o">*</span>,</span><span class="param">	<span class="n">max_result_rows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">params</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cancellation</span><span class="p">:</span> <span class="n"><a href="#CancellationToken">CancellationToken</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="n"><a href="#Table">Table</a></span>:</span></span>
 
         
     </div>

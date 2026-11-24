@@ -114,6 +114,11 @@ exceptions are also available directly from <code><a href="../velr.html">velr</a
 <code><a href="guide.html">velr.guide</a></code> or <code><a href="query_language.html">velr.query_language</a></code> do not load the native runtime; accessing a
 public driver attribute such as <code><a href="../velr.html#Velr">velr.Velr</a></code> loads it when needed.</p>
 
+<p>Install <code>velr[gds]</code> to add graph analytics, then open a connection with
+<code>Velr.open(extensions=[Gds()])</code>. The package supplies <code>Gds</code> through
+<code>from velr_gds import Gds</code>. The <a href="../velr/guide.html">driver guide</a> has a graph analytics
+section with projection, execution, and cleanup.</p>
+
 <h2 id="queries-and-results">Queries and results</h2>
 
 <h3 id="in-memory-persistent-and-read-only-databases">In-memory, persistent, and read-only databases</h3>
@@ -432,6 +437,32 @@ covers retained values and moving an idle connection.</p>
 
 <h2 id="features-and-integrations">Features and integrations</h2>
 
+<h3 id="quantified-path-patterns">Quantified path patterns</h3>
+
+<p>Use <code>{2}</code> to match two repetitions of a path segment. The node variables
+inside the segment return lists in traversal order.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn"><a href="driver.html">velr.driver</a></span><span class="w"> </span><span class="kn">import</span> <span class="n">Velr</span>
+
+<span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+        <span class="s2">"CREATE (:Stop {name: 'Central'})-[:NEXT]-&gt;(:Stop {name: 'North'})"</span>
+        <span class="s2">"-[:NEXT]-&gt;(:Stop {name: 'Airport'})"</span>
+    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">exec_one</span><span class="p">(</span>
+        <span class="s2">"MATCH (:Stop {name: 'Central'}) ((departure)-[:NEXT]-&gt;(arrival))</span><span class="si">{2}</span><span class="s2"> "</span>
+        <span class="s2">"RETURN [stop IN departure | stop.name] AS departures, "</span>
+        <span class="s2">"[stop IN arrival | stop.name] AS arrivals"</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">table</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">to_records</span><span class="p">())</span>
+        <span class="c1"># [{'departures': ['Central', 'North'], 'arrivals': ['North', 'Airport']}]</span>
+</code></pre>
+</div>
+
+<p>See the <a href="../velr/query_language.html#quantified-path-patterns">quantified path patterns reference</a>
+for ranges and per-repetition filters.</p>
+
 <table>
 <thead>
 <tr>
@@ -565,6 +596,44 @@ If a transaction has pending changes to an embedder-backed index, commit or
 roll back before searching that index. The
 <a href="../velr/guide.html#vector-search-and-embeddings">vector guide</a> demonstrates the full
 registration and text-query workflow.</p>
+
+<h3 id="bulk-import-from-csv">Bulk import from CSV</h3>
+
+<p>Use the standalone <code>velr-import</code> package to create a Velr database from local
+node and relationship CSV files. Install it alongside the query driver.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>velr-import
+</code></pre>
+</div>
+
+<p>This example writes a node CSV, imports it into a new database, and opens the
+database with the query driver after the import returns.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tempfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">TemporaryDirectory</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn"><a href="driver.html">velr.driver</a></span><span class="w"> </span><span class="kn">import</span> <span class="n">Velr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">velr_import</span><span class="w"> </span><span class="kn">import</span> <span class="n">import_csv</span>
+
+<span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">directory</span><span class="p">:</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"people.csv"</span>
+    <span class="n">source</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s2">"personId:ID(people),name:string,:LABEL</span><span class="se">\n</span><span class="s2">1,Ada,Person</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+    <span class="n">database</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"people.db"</span>
+
+    <span class="n">report</span> <span class="o">=</span> <span class="n">import_csv</span><span class="p">(</span><span class="n">database</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="p">[</span><span class="n">source</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">report</span><span class="o">.</span><span class="n">nodes</span> <span class="o">==</span> <span class="mi">1</span>
+
+    <span class="k">with</span> <span class="n">Velr</span><span class="o">.</span><span class="n">open_readonly</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">database</span><span class="p">))</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">db</span><span class="o">.</span><span class="n">to_records</span><span class="p">(</span><span class="s2">"MATCH (p:Person) RETURN p.name AS name"</span><span class="p">)</span> <span class="o">==</span> <span class="p">[{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Ada"</span><span class="p">}]</span>
+</code></pre>
+</div>
+
+<p>Use a new destination and an importer built for the same Velr release. The
+<code>files</code> argument accepts plain or compressed CSV with embedded headers.
+Use <code>manifest="import.toml"</code> to group file parts or supply separate headers.
+The <code>velr-import</code> README covers header syntax, options, and reports.</p>
 
 <h3 id="arrow-import-and-export">Arrow import and export</h3>
 
