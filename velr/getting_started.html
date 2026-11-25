@@ -115,9 +115,9 @@ exceptions are also available directly from <code><a href="../velr.html">velr</a
 public driver attribute such as <code><a href="../velr.html#Velr">velr.Velr</a></code> loads it when needed.</p>
 
 <p>Install <code>velr[gds]</code> to add graph analytics, then open a connection with
-<code>Velr.open(extensions=[Gds()])</code>. The package supplies <code>Gds</code> through
-<code>from velr_gds import Gds</code>. The <a href="../velr/guide.html">driver guide</a> has a graph analytics
-section with projection, execution, and cleanup.</p>
+<code>Velr.open(extensions=[Gds()])</code> after importing <code>Gds</code> from <code>velr_gds</code>. Use
+Cypher to project a graph and run algorithms on the same connection.
+<a href="https://pypi.org/project/velr-gds/">Velr GDS quick start and Cypher reference</a></p>
 
 <h2 id="queries-and-results">Queries and results</h2>
 
