@@ -52,9 +52,9 @@ exceptions are also available directly from `velr`, including `QueryError`,
 public driver attribute such as `velr.Velr` loads it when needed.
 
 Install `velr[gds]` to add graph analytics, then open a connection with
-`Velr.open(extensions=[Gds()])`. The package supplies `Gds` through
-`from velr_gds import Gds`. The [driver guide](GUIDE.md) has a graph analytics
-section with projection, execution, and cleanup.
+`Velr.open(extensions=[Gds()])` after importing `Gds` from `velr_gds`. Use
+Cypher to project a graph and run algorithms on the same connection.
+[Velr GDS quick start and Cypher reference](https://pypi.org/project/velr-gds/)
 
 ## Queries and results
 

@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "velr"
-version = "0.2.65"
+version = "0.2.66"
 description = "Python bindings for Velr, an embedded openCypher graph database built on SQLite"
 readme = {file = "PYPI_README.md", content-type = "text/markdown"}
 requires-python = ">=3.12"

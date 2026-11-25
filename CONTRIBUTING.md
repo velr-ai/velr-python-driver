@@ -18,7 +18,7 @@ Activate the environment (`source .venv/bin/activate` on macOS/Linux or
 `.venv\Scripts\Activate.ps1` in PowerShell), then run:
 
 ```sh
-python -m pip install --only-binary=:all: "velr==0.2.65"
+python -m pip install --only-binary=:all: "velr==0.2.66"
 python -c "from importlib.metadata import distribution; from pathlib import Path; from shutil import copyfile; p = Path(distribution('velr').locate_file('velr/_vendor')); names = ('libvelrc.dylib', 'libvelrc.so', 'velrc.dll'); files = [p / n for n in names if (p / n).is_file()]; assert len(files) == 1, 'Expected one runtime in the installed wheel'; copyfile(files[0], Path('src/velr/_vendor') / files[0].name)"
 python -m pip install -e ".[test]"
 python -m pytest tests
