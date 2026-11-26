@@ -1984,6 +1984,81 @@ def _cell_bytes(ptr, length: int, what: str) -> bytes:
     return bytes(ffi.buffer(ptr, n))
 
 
+_CELL_NULL = lib.VELR_NULL
+_CELL_BOOL = lib.VELR_BOOL
+_CELL_INT64 = lib.VELR_INT64
+_CELL_DOUBLE = lib.VELR_DOUBLE
+_CELL_TEXT = lib.VELR_TEXT
+_CELL_JSON = lib.VELR_JSON
+_JSON_TEMPLATE_COLUMNS = 32
+_JSON_TEMPLATE_BYTES = 16 * 1024
+_JSON_TEMPLATE_MISSES = 8
+_JSON_TEMPLATE_UNREAD = object()
+_JSON_TEMPLATE_DISABLED = object()
+
+
+def _json_copy_plan(value):
+    if type(value) is dict:
+        entries = value.items()
+    elif type(value) is list:
+        entries = enumerate(value)
+    else:
+        return value
+
+    shallow = value.copy()
+    children = []
+    for key, member in entries:
+        if type(member) in (dict, list):
+            shallow[key] = None
+            children.append((key, _json_copy_plan(member)))
+    return shallow, children
+
+
+def _copy_planned_json(plan):
+    if type(plan) is not tuple:
+        return plan
+    shallow, children = plan
+    value = shallow.copy()
+    for key, child in children:
+        value[key] = _copy_planned_json(child)
+    return value
+
+
+class _ParsedJsonTemplate:
+    __slots__ = ("payload", "plan", "reference", "__weakref__")
+
+    def __init__(self, payload):
+        self.payload = payload
+        self.plan = _JSON_TEMPLATE_UNREAD
+        self.reference = weakref.ref(self)
+
+    def value(self):
+        plan = self.plan
+        if plan is _JSON_TEMPLATE_UNREAD:
+            value = json.loads(self.payload)
+            try:
+                self.plan = _json_copy_plan(value)
+            except RecursionError:
+                self.plan = _JSON_TEMPLATE_DISABLED
+            return value
+        if plan is not _JSON_TEMPLATE_DISABLED:
+            try:
+                return _copy_planned_json(plan)
+            except RecursionError:
+                pass
+        return json.loads(self.payload)
+
+
+class _JsonTemplateColumn:
+    __slots__ = ("previous", "repeated", "template", "misses")
+
+    def __init__(self):
+        self.previous = None
+        self.repeated = False
+        self.template = None
+        self.misses = 0
+
+
 @dataclass(frozen=True)
 class Cell:
     """One cell value in a result row.
@@ -2004,10 +2079,20 @@ class Cell:
     close. Prefer ``as_python()`` over interpreting type codes directly.
     """
 
+    __slots__ = ("__dict__", "__weakref__", "_json_template")
+
     ty: int
     i64: int
     f64: float
     data: bytes
+
+    def __getstate__(self):
+        state = super().__getstate__()
+        if isinstance(state, tuple):
+            fields, slots = state
+            slots.pop("_json_template", None)
+            return (fields, slots) if slots else fields
+        return state
 
     def as_python(
         self,
@@ -2034,21 +2119,26 @@ class Cell:
         error handlers raise their standard Python exceptions. The result is independent
         of the row iterator and remains usable after handles close.
         """
-        if self.ty == lib.VELR_NULL:
-            return None
-        if self.ty == lib.VELR_BOOL:
-            return bool(self.i64)
-        if self.ty == lib.VELR_INT64:
-            return int(self.i64)
-        if self.ty == lib.VELR_DOUBLE:
-            return float(self.f64)
-        if self.ty == lib.VELR_TEXT:
-            return self.data.decode(encoding, errors) if decode_text else bytes(self.data)
-        if self.ty == lib.VELR_JSON:
+        ty = self.ty
+        if ty == _CELL_JSON:
             if parse_json:
                 if encoding == "utf-8" and errors == "strict":
+                    reference = getattr(self, "_json_template", None)
+                    template = reference() if reference is not None else None
+                    if template is not None and self.data is template.payload:
+                        return template.value()
                     return json.loads(self.data)
                 return json.loads(self.data.decode(encoding, errors))
+            return self.data.decode(encoding, errors) if decode_text else bytes(self.data)
+        if ty == _CELL_NULL:
+            return None
+        if ty == _CELL_BOOL:
+            return bool(self.i64)
+        if ty == _CELL_INT64:
+            return int(self.i64)
+        if ty == _CELL_DOUBLE:
+            return float(self.f64)
+        if ty == _CELL_TEXT:
             return self.data.decode(encoding, errors) if decode_text else bytes(self.data)
         return bytes(self.data)
 
@@ -4742,7 +4832,9 @@ class Rows(_NativeHandle):
     errors raise ``VelrError``; ordinary exhaustion raises ``StopIteration``.
     """
 
-    __slots__ = ("_rows", "_ncols", "_buf", "_written", "_parent", "__weakref__")
+    __slots__ = (
+        "_rows", "_ncols", "_buf", "_written", "_parent", "_json_columns", "__weakref__",
+    )
 
     def __init__(self, rows_cdata, ncols: int, parent: "Table"):
         """@private"""
@@ -4750,6 +4842,7 @@ class Rows(_NativeHandle):
         self._ncols = ncols
         self._buf = ffi.new("velr_cell[]", ncols)
         self._written = ffi.new("size_t *")
+        self._json_columns = None
         self._init_child(parent)
 
     def __iter__(self):
@@ -4767,14 +4860,54 @@ class Rows(_NativeHandle):
         n = self._next_row_cell_count()
 
         row = []
+        columns = self._json_columns
         for i in range(n):
             c = self._buf[i]
+            ty = c.ty
             data = b""
-            if c.ty == lib.VELR_TEXT:
-                data = _cell_bytes(c.ptr, c.len, "VELR_TEXT cell")
-            elif c.ty == lib.VELR_JSON:
+            template = None
+            if ty == _CELL_JSON:
                 data = _cell_bytes(c.ptr, c.len, "VELR_JSON cell")
-            row.append(Cell(c.ty, int(c.i64_), float(c.f64_), data))
+                if columns is None:
+                    columns = self._json_columns = [
+                        _JsonTemplateColumn()
+                        for _ in range(min(n, _JSON_TEMPLATE_COLUMNS))
+                    ]
+                column = columns[i] if i < len(columns) else None
+                if column is not None:
+                    if column.previous == data:
+                        template = column.template
+                        if template is None:
+                            if column.repeated:
+                                # A pair alone would pay to build an unused plan.
+                                template = column.template = _ParsedJsonTemplate(column.previous)
+                            else:
+                                column.repeated = True
+                                column.misses = 0
+                        data = column.previous
+                    else:
+                        # A column of unique values only pays for a few comparisons.
+                        column.misses += 1
+                        if column.misses < _JSON_TEMPLATE_MISSES and len(data) <= _JSON_TEMPLATE_BYTES:
+                            column.previous = data
+                            column.repeated = False
+                            column.template = None
+                        else:
+                            columns[i] = None
+            else:
+                if ty == _CELL_TEXT:
+                    data = _cell_bytes(c.ptr, c.len, "VELR_TEXT cell")
+                if columns is not None and i < len(columns):
+                    column = columns[i]
+                    if column is not None and column.previous is not None:
+                        column.previous = None
+                        column.repeated = False
+                        column.template = None
+            cell = Cell(ty, int(c.i64_), float(c.f64_), data)
+            if template is not None:
+                # Retained cells own their bytes. The cursor owns the template.
+                object.__setattr__(cell, "_json_template", template.reference)
+            row.append(cell)
         return tuple(row)
 
     def _next_row_cell_count(self) -> int:
@@ -4997,6 +5130,7 @@ class Rows(_NativeHandle):
                 self._call_native(lib.velr_rows_close, self._rows)
             finally:
                 self._rows = ffi.NULL
+                self._json_columns = None
                 try:
                     self._parent._unregister_child(self)
                 except Exception:

@@ -35,8 +35,8 @@ path as the first argument for a file-backed graph.
 GDS is enabled per connection through `Velr.open()`. Each enabled connection
 has its own named graphs and a 512 MiB budget for managed GDS allocations. Pass
 `Gds(memory_limit_bytes=1024 * 1024 * 1024)` for a 1 GiB budget.
-The [Velr GDS package guide](https://pypi.org/project/velr-gds/) includes a
-complete program, projection options, algorithm arguments, and result columns.
+See the [GDS guide](https://velr-ai.github.io/velr-python-driver/gds/guide.html)
+for projection options, algorithm arguments, result columns, and Cypher examples.
 
 ## Query parameter binding
 

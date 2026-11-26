@@ -54,7 +54,7 @@ public driver attribute such as `velr.Velr` loads it when needed.
 Install `velr[gds]` to add graph analytics, then open a connection with
 `Velr.open(extensions=[Gds()])` after importing `Gds` from `velr_gds`. Use
 Cypher to project a graph and run algorithms on the same connection.
-[Velr GDS quick start and Cypher reference](https://pypi.org/project/velr-gds/)
+[Velr GDS quick start](https://pypi.org/project/velr-gds/) · [GDS guide](https://velr-ai.github.io/velr-python-driver/gds/guide.html)
 
 ## Queries and results
 

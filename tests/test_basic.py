@@ -1,4 +1,7 @@
+from copy import deepcopy
+from dataclasses import asdict
 import json
+import pickle
 
 import pytest
 
@@ -92,6 +95,85 @@ def test_exec_one_roundtrip():
         assert c0.data == b"Inception"
         assert c1.i64 == 2010
         assert c2.data == b'["Sci-Fi","Heist"]'
+
+
+def test_repeated_graph_and_map_cells_keep_owned_values(monkeypatch):
+    loads = json.loads
+    parsed = []
+
+    def count_loads(payload):
+        parsed.append(payload)
+        return loads(payload)
+
+    expected_info = {"nested": [{"names": ["λ", "é"]}, [1, 2]]}
+    with Velr.open(None) as db:
+        db.run("CREATE (:Place {name:'λ', tags:['walk','view']})")
+        with db.exec_one(
+            """
+            UNWIND [1,2,3,4,5] AS rank
+            MATCH (p:Place)
+            WITH p, rank, CASE WHEN rank=5 THEN ['fresh'] ELSE ['λ','é'] END AS names
+            RETURN p AS place, {nested:[{names:names},[1,2]]} AS info, rank
+            ORDER BY rank
+            """
+        ) as table, table.iter_rows() as rows:
+            first, second, third, fourth = [next(rows) for _ in range(4)]
+            assert first[:2] == second[:2] == third[:2] == fourth[:2]
+            assert [row[2].as_python() for row in (first, second, third, fourth)] == [1, 2, 3, 4]
+            place, info = third[:2]
+            assert type(place.data) is bytes
+            assert asdict(place) == dict(ty=place.ty, i64=place.i64, f64=place.f64, data=place.data)
+
+            monkeypatch.setattr(driver_module.json, "loads", count_loads)
+            for _ in range(2):
+                assert second[1].as_python(parse_json=True) == expected_info
+            assert parsed == [info.data, info.data]
+            parsed.clear()
+
+            place_value = place.as_python(parse_json=True)
+            place_value["labels"].clear()
+            place_value["properties"]["tags"].append("private change")
+            info_value = info.as_python(parse_json=True)
+            info_value["nested"][0]["names"][0] = "changed"
+            info_value["nested"][1].clear()
+            for row in (third, fourth):
+                assert row[0].as_python(parse_json=True)["labels"] == ["Place"]
+                assert row[0].as_python(parse_json=True)["properties"]["tags"] == ["walk", "view"]
+                assert row[1].as_python(parse_json=True) == expected_info
+            assert parsed == [place.data, info.data]
+
+            assert info.as_python(parse_json=True, encoding="utf-8-sig") == expected_info
+            assert parsed[-1] == info.data.decode("utf-8")
+            assert info.as_python(decode_text=False) == info.data
+            for copied in (deepcopy(info), pickle.loads(pickle.dumps(info))):
+                assert copied == info
+                assert asdict(copied) == asdict(info)
+                assert copied.as_python(parse_json=True) == expected_info
+
+            fresh = next(rows)[1]
+            assert fresh.as_python(parse_json=True)["nested"][0]["names"] == ["fresh"]
+            parsed.clear()
+            assert info.as_python(parse_json=True) == expected_info
+            assert parsed == [info.data]
+
+    parsed.clear()
+    assert place.as_python(parse_json=True)["properties"]["tags"] == ["walk", "view"]
+    assert parsed == [place.data]
+
+
+def test_distinct_json_cells_keep_their_value():
+    with Velr.open(None) as db:
+        with db.exec_one(
+            """
+            UNWIND range(1,30) AS i
+            RETURN {nested:[{value:[i,toString(i)]}]} AS item ORDER BY i
+            """
+        ) as table, table.iter_rows() as rows:
+            cells = [row[0] for row in rows]
+
+    for i, cell in enumerate(cells, 1):
+        assert cell.as_python(parse_json=True) == {"nested": [{"value": [i, str(i)]}]}
+        assert cell.as_python(decode_text=False) == cell.data
 
 
 def test_rows_deprecated_alias_for_iter_rows():
