@@ -1,0 +1,1707 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="pdoc 16.0.0"/>
+    <title>gds.guide API documentation</title>
+
+    <style>/*! * Bootstrap Reboot v5.0.0 (https://getbootstrap.com/) * Copyright 2011-2021 The Bootstrap Authors * Copyright 2011-2021 Twitter, Inc. * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE) * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md) */*,::after,::before{box-sizing:border-box}@media (prefers-reduced-motion:no-preference){:root{scroll-behavior:smooth}}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";font-size:1rem;font-weight:400;line-height:1.5;color:#212529;background-color:#fff;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}hr{margin:1rem 0;color:inherit;background-color:currentColor;border:0;opacity:.25}hr:not([size]){height:1px}h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:.5rem;font-weight:500;line-height:1.2}h1{font-size:calc(1.375rem + 1.5vw)}@media (min-width:1200px){h1{font-size:2.5rem}}h2{font-size:calc(1.325rem + .9vw)}@media (min-width:1200px){h2{font-size:2rem}}h3{font-size:calc(1.3rem + .6vw)}@media (min-width:1200px){h3{font-size:1.75rem}}h4{font-size:calc(1.275rem + .3vw)}@media (min-width:1200px){h4{font-size:1.5rem}}h5{font-size:1.25rem}h6{font-size:1rem}p{margin-top:0;margin-bottom:1rem}abbr[data-bs-original-title],abbr[title]{-webkit-text-decoration:underline dotted;text-decoration:underline dotted;cursor:help;-webkit-text-decoration-skip-ink:none;text-decoration-skip-ink:none}address{margin-bottom:1rem;font-style:normal;line-height:inherit}ol,ul{padding-left:2rem}dl,ol,ul{margin-top:0;margin-bottom:1rem}ol ol,ol ul,ul ol,ul ul{margin-bottom:0}dt{font-weight:700}dd{margin-bottom:.5rem;margin-left:0}blockquote{margin:0 0 1rem}b,strong{font-weight:bolder}small{font-size:.875em}mark{padding:.2em;background-color:#fcf8e3}sub,sup{position:relative;font-size:.75em;line-height:0;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}a{color:#0d6efd;text-decoration:underline}a:hover{color:#0a58ca}a:not([href]):not([class]),a:not([href]):not([class]):hover{color:inherit;text-decoration:none}code,kbd,pre,samp{font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:1em;direction:ltr;unicode-bidi:bidi-override}pre{display:block;margin-top:0;margin-bottom:1rem;overflow:auto;font-size:.875em}pre code{font-size:inherit;color:inherit;word-break:normal}code{font-size:.875em;color:#d63384;word-wrap:break-word}a>code{color:inherit}kbd{padding:.2rem .4rem;font-size:.875em;color:#fff;background-color:#212529;border-radius:.2rem}kbd kbd{padding:0;font-size:1em;font-weight:700}figure{margin:0 0 1rem}img,svg{vertical-align:middle}table{caption-side:bottom;border-collapse:collapse}caption{padding-top:.5rem;padding-bottom:.5rem;color:#6c757d;text-align:left}th{text-align:inherit;text-align:-webkit-match-parent}tbody,td,tfoot,th,thead,tr{border-color:inherit;border-style:solid;border-width:0}label{display:inline-block}button{border-radius:0}button:focus:not(:focus-visible){outline:0}button,input,optgroup,select,textarea{margin:0;font-family:inherit;font-size:inherit;line-height:inherit}button,select{text-transform:none}[role=button]{cursor:pointer}select{word-wrap:normal}select:disabled{opacity:1}[list]::-webkit-calendar-picker-indicator{display:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]:not(:disabled),[type=reset]:not(:disabled),[type=submit]:not(:disabled),button:not(:disabled){cursor:pointer}::-moz-focus-inner{padding:0;border-style:none}textarea{resize:vertical}fieldset{min-width:0;padding:0;margin:0;border:0}legend{float:left;width:100%;padding:0;margin-bottom:.5rem;font-size:calc(1.275rem + .3vw);line-height:inherit}@media (min-width:1200px){legend{font-size:1.5rem}}legend+*{clear:left}::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-fields-wrapper,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-text,::-webkit-datetime-edit-year-field{padding:0}::-webkit-inner-spin-button{height:auto}[type=search]{outline-offset:-2px;-webkit-appearance:textfield}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-color-swatch-wrapper{padding:0}::file-selector-button{font:inherit}::-webkit-file-upload-button{font:inherit;-webkit-appearance:button}output{display:inline-block}iframe{border:0}summary{display:list-item;cursor:pointer}progress{vertical-align:baseline}[hidden]{display:none!important}</style>
+    <style>/*! syntax-highlighting.css */pre{line-height:125%;}span.linenos{color:inherit; background-color:transparent; padding-left:5px; padding-right:20px;}.pdoc-code .hll{background-color:#ffffcc}.pdoc-code{background:#f8f8f8;}.pdoc-code .c{color:#3D7B7B; font-style:italic}.pdoc-code .err{border:1px solid #FF0000}.pdoc-code .k{color:#008000; font-weight:bold}.pdoc-code .o{color:#666666}.pdoc-code .ch{color:#3D7B7B; font-style:italic}.pdoc-code .cm{color:#3D7B7B; font-style:italic}.pdoc-code .cp{color:#9C6500}.pdoc-code .cpf{color:#3D7B7B; font-style:italic}.pdoc-code .c1{color:#3D7B7B; font-style:italic}.pdoc-code .cs{color:#3D7B7B; font-style:italic}.pdoc-code .gd{color:#A00000}.pdoc-code .ge{font-style:italic}.pdoc-code .gr{color:#E40000}.pdoc-code .gh{color:#000080; font-weight:bold}.pdoc-code .gi{color:#008400}.pdoc-code .go{color:#717171}.pdoc-code .gp{color:#000080; font-weight:bold}.pdoc-code .gs{font-weight:bold}.pdoc-code .gu{color:#800080; font-weight:bold}.pdoc-code .gt{color:#0044DD}.pdoc-code .kc{color:#008000; font-weight:bold}.pdoc-code .kd{color:#008000; font-weight:bold}.pdoc-code .kn{color:#008000; font-weight:bold}.pdoc-code .kp{color:#008000}.pdoc-code .kr{color:#008000; font-weight:bold}.pdoc-code .kt{color:#B00040}.pdoc-code .m{color:#666666}.pdoc-code .s{color:#BA2121}.pdoc-code .na{color:#687822}.pdoc-code .nb{color:#008000}.pdoc-code .nc{color:#0000FF; font-weight:bold}.pdoc-code .no{color:#880000}.pdoc-code .nd{color:#AA22FF}.pdoc-code .ni{color:#717171; font-weight:bold}.pdoc-code .ne{color:#CB3F38; font-weight:bold}.pdoc-code .nf{color:#0000FF}.pdoc-code .nl{color:#767600}.pdoc-code .nn{color:#0000FF; font-weight:bold}.pdoc-code .nt{color:#008000; font-weight:bold}.pdoc-code .nv{color:#19177C}.pdoc-code .ow{color:#AA22FF; font-weight:bold}.pdoc-code .w{color:#bbbbbb}.pdoc-code .mb{color:#666666}.pdoc-code .mf{color:#666666}.pdoc-code .mh{color:#666666}.pdoc-code .mi{color:#666666}.pdoc-code .mo{color:#666666}.pdoc-code .sa{color:#BA2121}.pdoc-code .sb{color:#BA2121}.pdoc-code .sc{color:#BA2121}.pdoc-code .dl{color:#BA2121}.pdoc-code .sd{color:#BA2121; font-style:italic}.pdoc-code .s2{color:#BA2121}.pdoc-code .se{color:#AA5D1F; font-weight:bold}.pdoc-code .sh{color:#BA2121}.pdoc-code .si{color:#A45A77; font-weight:bold}.pdoc-code .sx{color:#008000}.pdoc-code .sr{color:#A45A77}.pdoc-code .s1{color:#BA2121}.pdoc-code .ss{color:#19177C}.pdoc-code .bp{color:#008000}.pdoc-code .fm{color:#0000FF}.pdoc-code .vc{color:#19177C}.pdoc-code .vg{color:#19177C}.pdoc-code .vi{color:#19177C}.pdoc-code .vm{color:#19177C}.pdoc-code .il{color:#666666}</style>
+    <style>/*! theme.css */:root{--pdoc-background:#fff;}.pdoc{--text:#212529;--muted:#6c757d;--link:#3660a5;--link-hover:#1659c5;--code:#f8f8f8;--active:#fff598;--accent:#eee;--accent2:#c1c1c1;--nav-hover:rgba(255, 255, 255, 0.5);--name:#0066BB;--def:#008800;--annotation:#007020;}</style>
+    <style>/*! layout.css */html, body{width:100%;height:100%;}html, main{scroll-behavior:smooth;}body{background-color:var(--pdoc-background);}@media (max-width:769px){#navtoggle{cursor:pointer;position:absolute;width:50px;height:40px;top:1rem;right:1rem;border-color:var(--text);color:var(--text);display:flex;opacity:0.8;z-index:999;}#navtoggle:hover{opacity:1;}#togglestate + div{display:none;}#togglestate:checked + div{display:inherit;}main, header{padding:2rem 3vw;}header + main{margin-top:-3rem;}.git-button{display:none !important;}nav input[type="search"]{max-width:77%;}nav input[type="search"]:first-child{margin-top:-6px;}nav input[type="search"]:valid ~ *{display:none !important;}}@media (min-width:770px){:root{--sidebar-width:clamp(12.5rem, 28vw, 22rem);}nav{position:fixed;overflow:auto;height:100vh;width:var(--sidebar-width);}main, header{padding:3rem 2rem 3rem calc(var(--sidebar-width) + 3rem);width:calc(54rem + var(--sidebar-width));max-width:100%;}header + main{margin-top:-4rem;}#navtoggle{display:none;}}#togglestate{position:absolute;height:0;opacity:0;}nav.pdoc{--pad:clamp(0.5rem, 2vw, 1.75rem);--indent:1.5rem;background-color:var(--accent);border-right:1px solid var(--accent2);box-shadow:0 0 20px rgba(50, 50, 50, .2) inset;padding:0 0 0 var(--pad);overflow-wrap:anywhere;scrollbar-width:thin; scrollbar-color:var(--accent2) transparent; z-index:1}nav.pdoc::-webkit-scrollbar{width:.4rem; }nav.pdoc::-webkit-scrollbar-thumb{background-color:var(--accent2); }nav.pdoc > div{padding:var(--pad) 0;}nav.pdoc .module-list-button{display:inline-flex;align-items:center;color:var(--text);border-color:var(--muted);margin-bottom:1rem;}nav.pdoc .module-list-button:hover{border-color:var(--text);}nav.pdoc input[type=search]{display:block;outline-offset:0;width:calc(100% - var(--pad));}nav.pdoc .logo{max-width:calc(100% - var(--pad));max-height:35vh;display:block;margin:0 auto 1rem;transform:translate(calc(-.5 * var(--pad)), 0);}nav.pdoc ul{list-style:none;padding-left:0;}nav.pdoc > div > ul{margin-left:calc(0px - var(--pad));}nav.pdoc li a{padding:.2rem 0 .2rem calc(var(--pad) + var(--indent));}nav.pdoc > div > ul > li > a{padding-left:var(--pad);}nav.pdoc li{transition:all 100ms;}nav.pdoc li:hover{background-color:var(--nav-hover);}nav.pdoc a, nav.pdoc a:hover{color:var(--text);}nav.pdoc a{display:block;}nav.pdoc > h2:first-of-type{margin-top:1.5rem;}nav.pdoc .class:before{content:"class ";color:var(--muted);}nav.pdoc .function:after{content:"()";color:var(--muted);}nav.pdoc footer:before{content:"";display:block;width:calc(100% - var(--pad));border-top:solid var(--accent2) 1px;margin-top:1.5rem;padding-top:.5rem;}nav.pdoc footer{font-size:small;}</style>
+    <style>/*! content.css */.pdoc{color:var(--text);box-sizing:border-box;line-height:1.5;background:none;}.pdoc .pdoc-button{cursor:pointer;display:inline-block;border:solid black 1px;border-radius:2px;font-size:.75rem;padding:calc(0.5em - 1px) 1em;transition:100ms all;}.pdoc .alert{padding:1rem 1rem 1rem calc(1.5rem + 24px);border:1px solid transparent;border-radius:.25rem;background-repeat:no-repeat;background-position:.75rem center;margin-bottom:1rem;}.pdoc .alert > em{display:none;}.pdoc .alert > *:last-child{margin-bottom:0;}.pdoc .alert.note{color:#084298;background-color:#cfe2ff;border-color:#b6d4fe;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23084298%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2016A8%208%200%201%200%208%200a8%208%200%200%200%200%2016zm.93-9.412-1%204.705c-.07.34.029.533.304.533.194%200%20.487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703%200-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381%202.29-.287zM8%205.5a1%201%200%201%201%200-2%201%201%200%200%201%200%202z%22/%3E%3C/svg%3E");}.pdoc .alert.tip{color:#0a3622;background-color:#d1e7dd;border-color:#a3cfbb;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%230a3622%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M2%206a6%206%200%201%201%2010.174%204.31c-.203.196-.359.4-.453.619l-.762%201.769A.5.5%200%200%201%2010.5%2013a.5.5%200%200%201%200%201%20.5.5%200%200%201%200%201l-.224.447a1%201%200%200%201-.894.553H6.618a1%201%200%200%201-.894-.553L5.5%2015a.5.5%200%200%201%200-1%20.5.5%200%200%201%200-1%20.5.5%200%200%201-.46-.302l-.761-1.77a2%202%200%200%200-.453-.618A5.98%205.98%200%200%201%202%206m6-5a5%205%200%200%200-3.479%208.592c.263.254.514.564.676.941L5.83%2012h4.342l.632-1.467c.162-.377.413-.687.676-.941A5%205%200%200%200%208%201%22/%3E%3C/svg%3E");}.pdoc .alert.important{color:#055160;background-color:#cff4fc;border-color:#9eeaf9;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23055160%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M2%200a2%202%200%200%200-2%202v12a2%202%200%200%200%202%202h12a2%202%200%200%200%202-2V2a2%202%200%200%200-2-2zm6%204c.535%200%20.954.462.9.995l-.35%203.507a.552.552%200%200%201-1.1%200L7.1%204.995A.905.905%200%200%201%208%204m.002%206a1%201%200%201%201%200%202%201%201%200%200%201%200-2%22/%3E%3C/svg%3E");}.pdoc .alert.warning{color:#664d03;background-color:#fff3cd;border-color:#ffecb5;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23664d03%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8.982%201.566a1.13%201.13%200%200%200-1.96%200L.165%2013.233c-.457.778.091%201.767.98%201.767h13.713c.889%200%201.438-.99.98-1.767L8.982%201.566zM8%205c.535%200%20.954.462.9.995l-.35%203.507a.552.552%200%200%201-1.1%200L7.1%205.995A.905.905%200%200%201%208%205zm.002%206a1%201%200%201%201%200%202%201%201%200%200%201%200-2z%22/%3E%3C/svg%3E");}.pdoc .alert.caution{color:#842029;background-color:#f8d7da;border-color:#f5c2c7;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23842029%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M11.46.146A.5.5%200%200%200%2011.107%200H4.893a.5.5%200%200%200-.353.146L.146%204.54A.5.5%200%200%200%200%204.893v6.214a.5.5%200%200%200%20.146.353l4.394%204.394a.5.5%200%200%200%20.353.146h6.214a.5.5%200%200%200%20.353-.146l4.394-4.394a.5.5%200%200%200%20.146-.353V4.893a.5.5%200%200%200-.146-.353zM8%204c.535%200%20.954.462.9.995l-.35%203.507a.552.552%200%200%201-1.1%200L7.1%204.995A.905.905%200%200%201%208%204m.002%206a1%201%200%201%201%200%202%201%201%200%200%201%200-2%22/%3E%3C/svg%3E");}.pdoc .alert.danger{color:#842029;background-color:#f8d7da;border-color:#f5c2c7;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22%23842029%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M5.52.359A.5.5%200%200%201%206%200h4a.5.5%200%200%201%20.474.658L8.694%206H12.5a.5.5%200%200%201%20.395.807l-7%209a.5.5%200%200%201-.873-.454L6.823%209.5H3.5a.5.5%200%200%201-.48-.641l2.5-8.5z%22/%3E%3C/svg%3E");}.pdoc .visually-hidden{position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0, 0, 0, 0) !important;white-space:nowrap !important;border:0 !important;}.pdoc h1, .pdoc h2, .pdoc h3{font-weight:300;margin:.3em 0;padding:.2em 0;}.pdoc > section:not(.module-info) h1{font-size:1.5rem;font-weight:500;}.pdoc > section:not(.module-info) h2{font-size:1.4rem;font-weight:500;}.pdoc > section:not(.module-info) h3{font-size:1.3rem;font-weight:500;}.pdoc > section:not(.module-info) h4{font-size:1.2rem;}.pdoc > section:not(.module-info) h5{font-size:1.1rem;}.pdoc a{text-decoration:none;color:var(--link);}.pdoc a:hover{color:var(--link-hover);}.pdoc blockquote{margin-left:2rem;}.pdoc pre{border-top:1px solid var(--accent2);border-bottom:1px solid var(--accent2);margin-top:0;margin-bottom:1em;padding:.5rem 0 .5rem .5rem;overflow-x:auto;background-color:var(--code);}.pdoc code{color:var(--text);padding:.2em .4em;margin:0;font-size:85%;background-color:var(--accent);border-radius:6px;}.pdoc a > code{color:inherit;}.pdoc pre > code{display:inline-block;font-size:inherit;background:none;border:none;padding:0;}.pdoc > section:not(.module-info){margin-bottom:1.5rem;}.pdoc .modulename{margin-top:0;font-weight:bold;}.pdoc .modulename a{color:var(--link);transition:100ms all;}.pdoc .git-button{float:right;border:solid var(--link) 1px;}.pdoc .git-button:hover{background-color:var(--link);color:var(--pdoc-background);}.view-source-toggle-state,.view-source-toggle-state ~ .pdoc-code{display:none;}.view-source-toggle-state:checked ~ .pdoc-code{display:block;}.view-source-button{display:inline-block;float:right;font-size:.75rem;line-height:1.5rem;color:var(--muted);padding:0 .4rem 0 1.3rem;cursor:pointer;text-indent:-2px;}.view-source-button > span{visibility:hidden;}.module-info .view-source-button{float:none;display:flex;justify-content:flex-end;margin:-1.2rem .4rem -.2rem 0;}.view-source-button::before{position:absolute;content:"View Source";display:list-item;list-style-type:disclosure-closed;}.view-source-toggle-state:checked ~ .attr .view-source-button::before,.view-source-toggle-state:checked ~ .view-source-button::before{list-style-type:disclosure-open;}.pdoc .docstring{margin-bottom:1.5rem;}.pdoc section:not(.module-info) .docstring{margin-left:clamp(0rem, 5vw - 2rem, 1rem);}.pdoc .docstring .pdoc-code{margin-left:1em;margin-right:1em;}.pdoc h1:target,.pdoc h2:target,.pdoc h3:target,.pdoc h4:target,.pdoc h5:target,.pdoc h6:target,.pdoc .pdoc-code > pre > span:target{background-color:var(--active);box-shadow:-1rem 0 0 0 var(--active);}.pdoc .pdoc-code > pre > span:target{display:block;}.pdoc div:target > .attr,.pdoc section:target > .attr,.pdoc dd:target > a{background-color:var(--active);}.pdoc *{scroll-margin:2rem;}.pdoc .pdoc-code .linenos{user-select:none;}.pdoc .attr:hover{filter:contrast(0.95);}.pdoc section, .pdoc .classattr{position:relative;}.pdoc .headerlink{--width:clamp(1rem, 3vw, 2rem);position:absolute;top:0;left:calc(0rem - var(--width));transition:all 100ms ease-in-out;opacity:0;}.pdoc .headerlink::before{content:"#";display:block;text-align:center;width:var(--width);height:2.3rem;line-height:2.3rem;font-size:1.5rem;}.pdoc .attr:hover ~ .headerlink,.pdoc *:target > .headerlink,.pdoc .headerlink:hover{opacity:1;}.pdoc .attr{display:block;margin:.5rem 0 .5rem;padding:.4rem .4rem .4rem 1rem;background-color:var(--accent);overflow-x:auto;}.pdoc .classattr{margin-left:2rem;}.pdoc .decorator-deprecated{color:#842029;}.pdoc .decorator-deprecated ~ span{filter:grayscale(1) opacity(0.8);}.pdoc .name{color:var(--name);font-weight:bold;}.pdoc .def{color:var(--def);font-weight:bold;}.pdoc .signature{background-color:transparent;}.pdoc .param, .pdoc .return-annotation{white-space:pre;}.pdoc .signature.multiline .param{display:block;}.pdoc .signature.condensed .param{display:inline-block;}.pdoc .annotation{color:var(--annotation);}.pdoc .view-value-toggle-state,.pdoc .view-value-toggle-state ~ .default_value{display:none;}.pdoc .view-value-toggle-state:checked ~ .default_value{display:inherit;}.pdoc .view-value-button{font-size:.5rem;vertical-align:middle;border-style:dashed;margin-top:-0.1rem;}.pdoc .view-value-button:hover{background:white;}.pdoc .view-value-button::before{content:"show";text-align:center;width:2.2em;display:inline-block;}.pdoc .view-value-toggle-state:checked ~ .view-value-button::before{content:"hide";}.pdoc .inherited{margin-left:2rem;}.pdoc .inherited dt{font-weight:700;}.pdoc .inherited dt, .pdoc .inherited dd{display:inline;margin-left:0;margin-bottom:.5rem;}.pdoc .inherited dd:not(:last-child):after{content:", ";}.pdoc .inherited .class:before{content:"class ";}.pdoc .inherited .function a:after{content:"()";}.pdoc .search-result .docstring{overflow:auto;max-height:25vh;}.pdoc .search-result.focused > .attr{background-color:var(--active);}.pdoc .attribution{margin-top:2rem;display:block;opacity:0.5;transition:all 200ms;filter:grayscale(100%);}.pdoc .attribution:hover{opacity:1;filter:grayscale(0%);}.pdoc .attribution img{margin-left:5px;height:27px;vertical-align:bottom;width:50px;transition:all 200ms;}.pdoc table{display:block;width:max-content;max-width:100%;overflow:auto;margin-bottom:1rem;}.pdoc table th{font-weight:600;}.pdoc table th, .pdoc table td{padding:6px 13px;border:1px solid var(--accent2);}</style>
+    <style>/*! custom.css */</style></head>
+<body>
+    <nav class="pdoc">
+        <label id="navtoggle" for="togglestate" class="pdoc-button"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke-linecap='round' stroke="currentColor" stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg></label>
+        <input id="togglestate" type="checkbox" aria-hidden="true" tabindex="-1">
+        <div>            <a class="pdoc-button module-list-button" href="../index.html">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
+  <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+</svg>                &nbsp;
+                Module Index
+            </a>
+
+
+            <input type="search" placeholder="Search..." role="searchbox" aria-label="search"
+                   pattern=".+" required>
+
+            <h2>Contents</h2>
+            <ul>
+  <li><a href="#velr-gds-guide">Velr GDS guide</a>
+  <ul>
+    <li><a href="#project-a-named-graph">Project a named graph</a></li>
+    <li><a href="#catalog-operations-and-scalar-functions">Catalog operations and scalar functions</a></li>
+    <li><a href="#algorithm-modes">Algorithm modes</a></li>
+    <li><a href="#algorithm-families">Algorithm families</a></li>
+    <li><a href="#node-similarity">Node Similarity</a></li>
+    <li><a href="#embeddings-and-nearest-neighbors">Embeddings and nearest neighbors</a></li>
+    <li><a href="#pathfinding">Pathfinding</a></li>
+    <li><a href="#graphalytics-profiles">Graphalytics profiles</a></li>
+  </ul></li>
+</ul>
+
+
+
+
+
+        <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
+            built with <span class="visually-hidden">pdoc</span><img
+                alt="pdoc logo"
+                src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20role%3D%22img%22%20aria-label%3D%22pdoc%20logo%22%20width%3D%22300%22%20height%3D%22160%22%20viewBox%3D%220%200%20150%2080%22%3E%3Ctitle%3Epdoc%3C/title%3E%3Cpath%20d%3D%22M132.316%2048.886c.276-4.679%202.342-6.698%204.409-7.982s4.27-1.165%206.751-1.055c1.586.07%203.044.156%204.222-.482%201.142-.619%202.026-1.932%202.162-3.739.268-3.576-1.929-5.368-5.006-5.551s-7.599.524-10.517%201.606c-4.455%201.652-8.588%206.606-9.552%208.992s-2.342%206.193-1.745%2010.873%202.664%209.221%205.878%2011.79%205.878%203.808%2010.103%204.312%203.444.229%206.062.229%205.006-2.202%204.914-4.909-2.296-5.001-4.501-4.863-3.077.505-5.281.229-7.715-2.064-7.899-9.451z%22%20fill%3D%22%23198754%22/%3E%3Ccircle%20cx%3D%22101.504%22%20cy%3D%2248.943%22%20r%3D%2214.208%22%20fill%3D%22none%22%20stroke%3D%22%23198754%22%20stroke-width%3D%229.354%22/%3E%3Cpath%20d%3D%22M87.81.002c-3.637.065-5.001.454-7.014%201.232s-3.443%201.363-6.3%204.282c-1.723%201.76-3.148%205.019-3.776%207.329-.413%201.521-.316%202.63-.316%202.63l-.195%2034.612c.065%205.774-6.755%208.305-9.612%208.37s-9.678-1.038-9.743-9.408%207.128-9.521%208.362-9.521c1.413-.13%202.526-.021%203.718-.016%202.071.009%204.157-.778%204.092-4.671s-4.157-4.736-4.157-4.736c-6.3-.843-11.43%202.206-11.43%202.206S40.917%2038.15%2041.372%2049.634%2051.568%2068.19%2061.311%2068.125s18.316-7.007%2018.445-17.193l.13-22.772c.046-2.291%202.683-3.644%204.476-4.203.745-.232%201.694-.274%201.694-.274l10.457-.13s4.871-.324%207.729-3.114%204.352-6.294%204.352-6.294.974-3.049.13-4.606-.195-1.233-2.792-3.309-8.573-4.477-8.573-4.477S91.447-.063%2087.81.002zM0%2047.169l.065%2028.417S0%2080.127%204.481%2079.997s5.072-3.866%205.049-4.152l-.113-28.482s1.624-7.656%209.937-7.721%2010.002%206.942%2010.002%208.499-.909%2010.51-9.093%2010.51c-.948%200-2.99-.567-4.145-.272-3.919%201-3.194%204.554-3.194%204.554s.065%205.061%207.404%204.996%2018.575-6.034%2018.575-19.074S26.953%2030.04%2019.549%2029.91%201.234%2035.296%200%2047.169z%22%20fill%3D%22%23198754%22/%3E%3Cg%20transform%3D%22matrix%28.325601%200%200%20.325256%20-10.32669%20-45.802786%29%22%3E%3Ccircle%20cx%3D%22297.554%22%20cy%3D%22172.286%22%20r%3D%2216.5%22%20fill%3D%22%23fff%22/%3E%3Cellipse%20cx%3D%22297.709%22%20cy%3D%22172.642%22%20rx%3D%2211.071%22%20ry%3D%2210.871%22%20fill%3D%22%23105a48%22/%3E%3Ccircle%20cx%3D%22304.104%22%20cy%3D%22167.667%22%20r%3D%224.5%22%20fill%3D%22%23fff%22/%3E%3C/g%3E%3Cpath%20d%3D%22M94.661%2017.032l.893-1.476s.99.714%201.916.925%201.575.114%202.955.114l14.565-.162c1.283-.032%203.085-.762%203.02-3.293s-.373-3.503-.373-3.503l1.283-.487s.52.503.877%201.573.309%201.995.292%202.66-.227%201.541-.227%201.541%201.564-.308%202.359-1.038.823-.779%201.489-1.508.812-.86.812-.86.552-.13.877.26.341.957.065%201.46-1.672%202.206-3.247%203.066-2.76%201.427-3.929%201.768-3.848.73-7.063.714l-10.944-.114s-2.143-.081-3.02-.373-2.241-.973-2.598-1.265z%22%20fill%3D%22%23d36d49%22/%3E%3Cg%20fill%3D%22%23105a48%22%3E%3Cellipse%20cx%3D%2293.052%22%20cy%3D%2243.567%22%20rx%3D%22.869%22%20ry%3D%221.014%22%20transform%3D%22rotate%28341.022%29%22/%3E%3Cellipse%20cx%3D%22104.3%22%20cy%3D%22-16.184%22%20rx%3D%22.865%22%20ry%3D%221.009%22%20transform%3D%22rotate%2814.786%29%22/%3E%3C/g%3E%3C/svg%3E"/>
+        </a>
+</div>
+    </nav>
+    <main class="pdoc">
+            <section class="module-info">
+                    <h1 class="modulename">
+gds<wbr>.guide    </h1>
+
+                        <div class="docstring"><h1 id="velr-gds-guide">Velr GDS guide</h1>
+
+<p>Run these Cypher procedures on an embedded connection with GDS enabled. Use the
+<a href="https://velr-ai.github.io/velr-python-driver/velr/guide.html">Velr Python driver guide</a>
+or the <a href="https://docs.rs/velr/latest/velr/guide/index.html">Velr Rust driver guide</a>
+for connection setup and result handling. Run each Cypher block as a separate
+query. Apply the queries in each example in order. Start with a fresh sample
+database unless the example uses data from an earlier section.</p>
+
+<p>Use <code>CALL gds.list()</code> to discover the procedures and scalar functions on your
+connection. To look up a family such as PageRank, run <code>CALL gds.list('pageRank')</code>.</p>
+
+<p>A projection belongs to the connection that creates it. Drop it when you finish
+or close the connection to release its projections. Drop and recreate a named
+projection to include changes to the database, or project the updated data under
+another name. Each connection with GDS has a 512 MiB memory budget by default.
+Set <code>Gds(memory_limit_bytes=...)</code> in Python or
+<code>Gds::new().with_memory_limit_bytes(...)</code> in Rust to change that budget.</p>
+
+<h2 id="project-a-named-graph">Project a named graph</h2>
+
+<p>Pass <code>gds.graph.project</code> a name, a node selection, a relationship selection,
+and an optional configuration map. Use a fresh name or drop the existing
+projection before reusing its name. Close open result tables to release any
+memory they retain after a drop.</p>
+
+<ul>
+<li><code>nodeProjection</code> accepts a label, a list of labels, <code>'*'</code> for all nodes, or
+a map of projected labels to options. All forms select nodes with any of
+the specified labels. In a map, <code>label</code> defaults to the projected label.
+Declare labels explicitly to select them with <code>nodeLabels</code> in an algorithm
+call. A wildcard-only projection exposes no named labels.</li>
+<li>In a node option map, <code>properties</code> accepts a name, a list of names, or a map.
+Use <code>properties: {seed: 'storedCommunity'}</code> to project <code>storedCommunity</code> as
+<code>seed</code>. Use <code>properties: {seed: {property: 'storedCommunity', defaultValue: 0}}</code>
+to supply a default for missing values. <code>property</code> defaults to the alias.
+To load properties on every selected node, use <code>nodeProperties</code> in the
+fourth argument with the same syntax. Use the same source property and default
+if you reuse a property alias for multiple labels.</li>
+<li>Each projected scalar property holds Integers or finite Floats of one type. Set a
+default of the same type, such as <code>0</code> for Integers or <code>0.0</code> for Floats.
+Missing values are <code>null</code> when you omit the default or set it to <code>null</code>. A
+property with no values or default is an Integer column. Label-specific
+properties are <code>null</code> on nodes outside their selected labels. Use
+<code>gds.util.asNode(nodeId)</code> to read a node's current database properties.</li>
+<li>A projected vector property accepts stored <code>VECTOR</code> values with <code>FLOAT32</code>
+or <code>FLOAT64</code> coordinates and Lists of Floats. Every projected node must have a
+finite vector of the same positive width. Use a nonempty finite numeric list
+as <code>defaultValue</code> for missing vectors on selected nodes. Include the vector
+property on every projected label. An optional positive Integer <code>dimensions</code>
+declares the width. For estimates with explicit node and relationship counts,
+supply <code>dimensions</code> or a vector default so memory reflects the vector width.</li>
+<li><code>relationshipProjection</code> accepts a type, a list of types, <code>'*'</code>, or a map of
+aliases to type names or option maps. Include each source type once. Use the
+wildcard by itself. Both endpoints must match the node selection.
+Declare original types by name or alias to select them in an algorithm call.</li>
+<li>In a relationship option map, <code>type</code> defaults to the alias. Set <code>orientation</code>
+independently for each type. <code>NATURAL</code> follows stored direction and is the
+default. <code>REVERSE</code> follows the opposite direction, and <code>UNDIRECTED</code> follows
+both. <code>relationshipCount</code> counts both directions for each undirected
+relationship, including each undirected self-loop.</li>
+<li>To project numeric weights on an original relationship type, set
+<code>properties</code> to a property name, a list of distinct names, or a map from
+aliases to property definitions. For example, <code>properties: ['weight', 'capacity']</code>
+retains both names, and <code>properties: {cost: 'weight', limit: 'capacity'}</code>
+exposes them as <code>cost</code> and <code>limit</code>. Use <code>{property: 'weight', defaultValue: 1.0}</code>
+as an alias definition to supply a default for missing values. If you omit
+<code>property</code>, the property name defaults to the alias. Stored weights and
+defaults must be finite numbers. Types can use different source properties and
+defaults under the same alias.</li>
+<li><code>aggregation</code> accepts <code>'NONE'</code> and <code>'DEFAULT'</code>. Both keep parallel
+relationships and self-loops. <code>indexInverse</code> accepts a Boolean for directed
+projections. Omit it or set it to <code>false</code> on undirected projections.</li>
+<li>The fourth argument also accepts <code>readConcurrency</code>, a positive Integer with
+default <code>4</code>. Projection uses one thread.</li>
+</ul>
+
+<h3 id="use-stored-community-seeds">Use stored community seeds</h3>
+
+<p>Project the optional Integer <code>storedCommunity</code> property on <code>Person</code> nodes as
+<code>seed</code>, then pass that alias to Label Propagation. For this projection, nodes
+without a stored community start with seed <code>0</code>.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="p">(:</span><span class="n">Person</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Alice'</span><span class="p">,</span><span class="w"> </span><span class="n">storedCommunity</span><span class="p">:</span><span class="w"> </span><span class="m">7</span><span class="p">})</span><span class="o">-[</span><span class="p">:</span><span class="n">KNOWS</span><span class="o">]-&gt;</span>
+<span class="w">       </span><span class="p">(:</span><span class="n">Person</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Bob'</span><span class="p">}),</span><span class="w"> </span><span class="p">(:</span><span class="n">Person</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Carol'</span><span class="p">})</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s">'seeded_people'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Person</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">properties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">seed</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">property</span><span class="p">:</span><span class="w"> </span><span class="s">'storedCommunity'</span><span class="p">,</span><span class="w"> </span><span class="n">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">}}}</span>
+<span class="p">},</span><span class="w"> </span><span class="s">'KNOWS'</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">labelPropagation</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'seeded_people'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">seedProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'seed'</span><span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodeId</span><span class="p">,</span><span class="w"> </span><span class="n">communityId</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">asNode</span><span class="p">(</span><span class="n">nodeId</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">communityId</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">name</span>
+</code></pre>
+</div>
+
+<h3 id="rank-nodes-by-two-weight-aliases">Rank nodes by two weight aliases</h3>
+
+<p>Create three accounts with a transfer and a payment from the same account.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="p">(</span><span class="n">alex</span><span class="p">:</span><span class="n">WeightedAccount</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Alex'</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">blair</span><span class="p">:</span><span class="n">WeightedAccount</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Blair'</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">casey</span><span class="p">:</span><span class="n">WeightedAccount</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Casey'</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">alex</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">TRANSFER</span><span class="w"> </span><span class="p">{</span><span class="n">amount</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">transfers</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">}</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">blair</span><span class="p">),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">alex</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">PAYMENT</span><span class="w"> </span><span class="p">{</span><span class="n">payments</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">casey</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Project <code>volume</code> and <code>frequency</code> on both relationship types. The payment has
+no stored <code>total</code>, so its <code>volume</code> uses the default of <code>1.0</code>.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s">'account_flows'</span><span class="p">,</span><span class="w"> </span><span class="s">'WeightedAccount'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">WIRE</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">type</span><span class="p">:</span><span class="w"> </span><span class="s">'TRANSFER'</span><span class="p">,</span><span class="w"> </span><span class="n">properties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">volume</span><span class="p">:</span><span class="w"> </span><span class="s">'amount'</span><span class="p">,</span><span class="w"> </span><span class="n">frequency</span><span class="p">:</span><span class="w"> </span><span class="s">'transfers'</span><span class="p">}},</span>
+<span class="w">  </span><span class="n">CARD</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">type</span><span class="p">:</span><span class="w"> </span><span class="s">'PAYMENT'</span><span class="p">,</span><span class="w"> </span><span class="n">properties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">volume</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">property</span><span class="p">:</span><span class="w"> </span><span class="s">'total'</span><span class="p">,</span><span class="w"> </span><span class="n">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">.</span><span class="m">0</span><span class="p">},</span><span class="w"> </span><span class="n">frequency</span><span class="p">:</span><span class="w"> </span><span class="s">'payments'</span>
+<span class="w">  </span><span class="p">}}</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+<p>Run PageRank twice on the same projection, choosing one weight alias per call.
+Blair ranks first by volume, and Casey ranks first by frequency.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">pageRank</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'account_flows'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">relationshipTypes</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'WIRE'</span><span class="p">,</span><span class="w"> </span><span class="s">'CARD'</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">relationshipWeightProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'volume'</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodeId</span><span class="p">,</span><span class="w"> </span><span class="n">score</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">asNode</span><span class="p">(</span><span class="n">nodeId</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">account</span><span class="p">,</span><span class="w"> </span><span class="n">score</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="w"> </span><span class="n">account</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">pageRank</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'account_flows'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">relationshipTypes</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'WIRE'</span><span class="p">,</span><span class="w"> </span><span class="s">'CARD'</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">relationshipWeightProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'frequency'</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodeId</span><span class="p">,</span><span class="w"> </span><span class="n">score</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">asNode</span><span class="p">(</span><span class="n">nodeId</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">account</span><span class="p">,</span><span class="w"> </span><span class="n">score</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="w"> </span><span class="n">account</span>
+</code></pre>
+</div>
+
+<h3 id="rank-nodes-across-relationship-orientations">Rank nodes across relationship orientations</h3>
+
+<p>Create three people with a directed endorsement and a collaboration.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="p">(</span><span class="n">ada</span><span class="p">:</span><span class="n">MixedRank</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Ada'</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">blair</span><span class="p">:</span><span class="n">MixedRank</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Blair'</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">casey</span><span class="p">:</span><span class="n">MixedRank</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Casey'</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">ada</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">ENDORSES</span><span class="w"> </span><span class="p">{</span><span class="n">strength</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">blair</span><span class="p">),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">ada</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">COLLABORATES</span><span class="w"> </span><span class="p">{</span><span class="n">intensity</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">}</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">casey</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Project the endorsement in its stored direction and the collaboration in both
+directions. Give both types the weight alias <code>weight</code>.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s">'mixed_rank'</span><span class="p">,</span><span class="w"> </span><span class="s">'MixedRank'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">ENDORSES</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">orientation</span><span class="p">:</span><span class="w"> </span><span class="s">'NATURAL'</span><span class="p">,</span><span class="w"> </span><span class="n">properties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">weight</span><span class="p">:</span><span class="w"> </span><span class="s">'strength'</span><span class="p">}},</span>
+<span class="w">  </span><span class="n">COLLABORATES</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">orientation</span><span class="p">:</span><span class="w"> </span><span class="s">'UNDIRECTED'</span><span class="p">,</span><span class="w"> </span><span class="n">properties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">weight</span><span class="p">:</span><span class="w"> </span><span class="s">'intensity'</span><span class="p">}}</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+<p>Run weighted PageRank across both types. With these settings, Ada receives
+<code>0.75</code>, Blair receives <code>0.6875</code>, and Casey receives <code>0.5625</code>.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">pageRank</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'mixed_rank'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">relationshipTypes</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'ENDORSES'</span><span class="p">,</span><span class="w"> </span><span class="s">'COLLABORATES'</span><span class="o">]</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipWeightProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'weight'</span><span class="p">,</span><span class="w"> </span><span class="n">dampingFactor</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">maxIterations</span><span class="p">:</span><span class="w"> </span><span class="m">2</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodeId</span><span class="p">,</span><span class="w"> </span><span class="n">score</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">asNode</span><span class="p">(</span><span class="n">nodeId</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">person</span><span class="p">,</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">person</span>
+</code></pre>
+</div>
+
+<h3 id="rank-nodes-within-projected-label-groups">Rank nodes within projected label groups</h3>
+
+<p>Create a graph with overlapping labels. Blair belongs to both selected groups,
+and Drew belongs to one group and has no relationships.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="p">(</span><span class="n">ada</span><span class="p">:</span><span class="n">LabelRankMember</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Ada'</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">blair</span><span class="p">:</span><span class="n">LabelRankMember</span><span class="p">:</span><span class="n">LabelRankReviewer</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Blair'</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">casey</span><span class="p">:</span><span class="n">LabelRankReviewer</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Casey'</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(:</span><span class="n">LabelRankReviewer</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Drew'</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">guest</span><span class="p">:</span><span class="n">LabelRankGuest</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Guest'</span><span class="p">,</span><span class="w"> </span><span class="n">storedRank</span><span class="p">:</span><span class="w"> </span><span class="err">-</span><span class="m">1</span><span class="p">.</span><span class="m">0</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">ada</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">RECOMMENDS</span><span class="w"> </span><span class="p">{</span><span class="n">rating</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">blair</span><span class="p">),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">ada</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">CO_REVIEWS</span><span class="w"> </span><span class="p">{</span><span class="n">strength</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">}</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">casey</span><span class="p">),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">ada</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">RECOMMENDS</span><span class="w"> </span><span class="p">{</span><span class="n">rating</span><span class="p">:</span><span class="w"> </span><span class="m">100</span><span class="p">}</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">guest</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Project all three labels and give both relationship types the weight alias
+<code>weight</code>.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s">'label_rank'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Member</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">label</span><span class="p">:</span><span class="w"> </span><span class="s">'LabelRankMember'</span><span class="p">},</span>
+<span class="w">  </span><span class="n">Reviewer</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">label</span><span class="p">:</span><span class="w"> </span><span class="s">'LabelRankReviewer'</span><span class="p">},</span>
+<span class="w">  </span><span class="n">Guest</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">label</span><span class="p">:</span><span class="w"> </span><span class="s">'LabelRankGuest'</span><span class="p">}</span>
+<span class="p">},</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">RECOMMENDS</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">properties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">weight</span><span class="p">:</span><span class="w"> </span><span class="s">'rating'</span><span class="p">}},</span>
+<span class="w">  </span><span class="n">CO_REVIEWS</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">orientation</span><span class="p">:</span><span class="w"> </span><span class="s">'UNDIRECTED'</span><span class="p">,</span><span class="w"> </span><span class="n">properties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">weight</span><span class="p">:</span><span class="w"> </span><span class="s">'strength'</span><span class="p">}}</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+<p>Rank nodes in the union of <code>Member</code> and <code>Reviewer</code> across both types. Blair
+appears once, Drew receives a score, and the edge to Guest is outside the
+selection.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">pageRank</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'label_rank'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">nodeLabels</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'Member'</span><span class="p">,</span><span class="w"> </span><span class="s">'Reviewer'</span><span class="o">]</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipTypes</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'RECOMMENDS'</span><span class="p">,</span><span class="w"> </span><span class="s">'CO_REVIEWS'</span><span class="o">]</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipWeightProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'weight'</span><span class="p">,</span><span class="w"> </span><span class="n">dampingFactor</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">maxIterations</span><span class="p">:</span><span class="w"> </span><span class="m">2</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodeId</span><span class="p">,</span><span class="w"> </span><span class="n">score</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">asNode</span><span class="p">(</span><span class="n">nodeId</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">person</span><span class="p">,</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">person</span>
+</code></pre>
+</div>
+
+<p>Use the same selection to estimate the call. It contains four nodes and three
+relationship arcs, including both directions of the co-review.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">pageRank</span><span class="p">.</span><span class="n">stream</span><span class="p">.</span><span class="n">estimate</span><span class="p">(</span><span class="s">'label_rank'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">nodeLabels</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'Member'</span><span class="p">,</span><span class="w"> </span><span class="s">'Reviewer'</span><span class="o">]</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipTypes</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'RECOMMENDS'</span><span class="p">,</span><span class="w"> </span><span class="s">'CO_REVIEWS'</span><span class="o">]</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipWeightProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'weight'</span><span class="p">,</span><span class="w"> </span><span class="n">dampingFactor</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">maxIterations</span><span class="p">:</span><span class="w"> </span><span class="m">2</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodeCount</span><span class="p">,</span><span class="w"> </span><span class="n">relationshipCount</span><span class="p">,</span><span class="w"> </span><span class="n">bytesMax</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">nodeCount</span><span class="p">,</span><span class="w"> </span><span class="n">relationshipCount</span><span class="p">,</span><span class="w"> </span><span class="n">bytesMax</span>
+</code></pre>
+</div>
+
+<p>Save the same scores as a new <code>groupRank</code> property on the projection. The
+property contains Float scores for the four selected nodes and <code>null</code> for Guest.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">pageRank</span><span class="p">.</span><span class="n">mutate</span><span class="p">(</span><span class="s">'label_rank'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">nodeLabels</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'Member'</span><span class="p">,</span><span class="w"> </span><span class="s">'Reviewer'</span><span class="o">]</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipTypes</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'RECOMMENDS'</span><span class="p">,</span><span class="w"> </span><span class="s">'CO_REVIEWS'</span><span class="o">]</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipWeightProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'weight'</span><span class="p">,</span><span class="w"> </span><span class="n">dampingFactor</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">maxIterations</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="p">,</span>
+<span class="w">  </span><span class="n">mutateProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'groupRank'</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodePropertiesWritten</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">nodePropertiesWritten</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">nodeProperty</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'label_rank'</span><span class="p">,</span><span class="w"> </span><span class="s">'groupRank'</span><span class="p">)</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodeId</span><span class="p">,</span><span class="w"> </span><span class="n">propertyValue</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">asNode</span><span class="p">(</span><span class="n">nodeId</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">person</span><span class="p">,</span><span class="w"> </span><span class="n">propertyValue</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">score</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">person</span>
+</code></pre>
+</div>
+
+<p>Find the closest score for each selected node with kNN on the same projection.
+kNN requires a value for each selected node, so use the same label aliases.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">knn</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'label_rank'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">nodeLabels</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'Member'</span><span class="p">,</span><span class="w"> </span><span class="s">'Reviewer'</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">nodeProperties</span><span class="p">:</span><span class="w"> </span><span class="s">'groupRank'</span><span class="p">,</span><span class="w"> </span><span class="n">topK</span><span class="p">:</span><span class="w"> </span><span class="m">1</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">node1</span><span class="p">,</span><span class="w"> </span><span class="n">node2</span><span class="p">,</span><span class="w"> </span><span class="n">similarity</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">asNode</span><span class="p">(</span><span class="n">node1</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">person</span><span class="p">,</span>
+<span class="w">       </span><span class="n">gds</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">asNode</span><span class="p">(</span><span class="n">node2</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">neighbor</span><span class="p">,</span><span class="w"> </span><span class="n">similarity</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">person</span>
+</code></pre>
+</div>
+
+<p>Save the same weighted scores to <code>storedRank</code>. The procedure writes four
+properties, and Guest keeps the existing value of <code>-1.0</code>.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">pageRank</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'label_rank'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">nodeLabels</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'Member'</span><span class="p">,</span><span class="w"> </span><span class="s">'Reviewer'</span><span class="o">]</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipTypes</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'RECOMMENDS'</span><span class="p">,</span><span class="w"> </span><span class="s">'CO_REVIEWS'</span><span class="o">]</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipWeightProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'weight'</span><span class="p">,</span><span class="w"> </span><span class="n">dampingFactor</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">maxIterations</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="p">,</span>
+<span class="w">  </span><span class="n">writeProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'storedRank'</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodePropertiesWritten</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">nodePropertiesWritten</span>
+</code></pre>
+</div>
+
+<h2 id="catalog-operations-and-scalar-functions">Catalog operations and scalar functions</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Call</th>
+  <th>Result and arguments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>CALL gds.graph.project(graphName, nodeProjection, relationshipProjection [, configuration])</code></td>
+  <td>Returns <code>graphName</code>, <code>nodeProjection</code>, <code>relationshipProjection</code>, <code>nodeCount</code>, <code>relationshipCount</code>, and <code>projectMillis</code>. Use a nonempty String name other than <code>'*'</code>. The configuration defaults to <code>{}</code>.</td>
+</tr>
+<tr>
+  <td><code>CALL gds.graph.project.estimate(nodeProjection, relationshipProjection [, configuration])</code></td>
+  <td>Estimates the memory required for a projection. Returns Integer <code>nodeCount</code>, source <code>relationshipCount</code> before applying orientation, <code>bytesMin</code>, and <code>bytesMax</code>, String <code>requiredMemory</code> and <code>treeView</code>, Map <code>mapView</code>, and Float <code>heapPercentageMin</code> and <code>heapPercentageMax</code>.</td>
+</tr>
+<tr>
+  <td><code>CALL gds.graph.list([graphName])</code></td>
+  <td>Lists matching projections. The String defaults to <code>'*'</code>, which lists every graph on the connection. Returns <code>graphName</code>, <code>database</code>, <code>memoryUsage</code>, <code>sizeInBytes</code>, <code>nodeCount</code>, <code>relationshipCount</code>, and <code>schema</code>. An unknown name returns no rows.</td>
+</tr>
+<tr>
+  <td><code>CALL gds.graph.exists(graphName)</code></td>
+  <td>Accepts a String and returns <code>graphName</code> and Boolean <code>exists</code>.</td>
+</tr>
+<tr>
+  <td><code>CALL gds.graph.drop(graphName [, failIfMissing])</code></td>
+  <td>Accepts a String name and returns the same columns as <code>gds.graph.list</code> for the removed projection. Boolean <code>failIfMissing</code> defaults to <code>true</code>. Pass <code>false</code> to return no rows when the name is absent.</td>
+</tr>
+<tr>
+  <td><code>CALL gds.graph.nodeProperty.stream(graphName, nodeProperty)</code></td>
+  <td>Accepts two Strings and returns <code>nodeId</code> and <code>propertyValue</code> for a projected scalar or Float vector property, including FastRP embeddings.</td>
+</tr>
+<tr>
+  <td><code>CALL gds.graph.nodeProperties.stream(graphName, nodeProperties [, nodeLabels [, configuration]])</code></td>
+  <td>Returns one row per selected node and property, with <code>nodeId</code>, <code>nodeProperty</code>, and <code>propertyValue</code>. Accepts a String or List of Strings for the properties.</td>
+</tr>
+<tr>
+  <td><code>CALL gds.graph.relationshipProperty.stream(graphName, relationshipProperty [, relationshipTypes [, configuration]])</code></td>
+  <td>Streams Float scores or weights from the catalog, with <code>sourceNodeId</code>, <code>targetNodeId</code>, <code>relationshipType</code>, and <code>propertyValue</code>. Supply a projected property name and a type alias or list of aliases. The default <code>['*']</code> selects the catalog types that have that property. Supports original projected types and types added by Node Similarity and kNN.</td>
+</tr>
+<tr>
+  <td><code>CALL gds.graph.nodeProperties.drop(graphName, nodeProperties [, configuration])</code></td>
+  <td>Removes numeric or vector properties from the catalog graph. Accepts a String or List of Strings and returns <code>propertiesRemoved</code>, <code>graphName</code>, and <code>nodeProperties</code>. The count includes entries with <code>null</code> values. Boolean <code>failIfMissing</code> defaults to <code>true</code>. Set it to <code>false</code> to skip missing properties.</td>
+</tr>
+<tr>
+  <td><code>CALL gds.graph.nodeProperties.write(graphName, nodeProperties [, nodeLabels [, configuration]])</code></td>
+  <td>Writes present Integer and Float values and Float vectors for selected nodes. Vectors are stored as <code>VECTOR</code> values with <code>FLOAT64</code> coordinates. Accepts a name, a map from projected names to database names, or a list of those forms. Returns <code>writeMillis</code>, <code>propertiesWritten</code>, <code>graphName</code>, <code>nodeProperties</code>, and <code>configuration</code>.</td>
+</tr>
+<tr>
+  <td><code>CALL gds.list([name])</code></td>
+  <td>Accepts a case-sensitive String substring. Omit it or pass <code>''</code> to list everything. Returns <code>name</code>, <code>description</code>, <code>signature</code>, and <code>type</code>.</td>
+</tr>
+<tr>
+  <td><code>gds.version()</code></td>
+  <td>Scalar function returning the add-on version as a String. Use <code>RETURN gds.version() AS version</code>.</td>
+</tr>
+<tr>
+  <td><code>gds.util.asNode(nodeId)</code></td>
+  <td>Scalar function resolving an exact Integer database ID to a node in the current query. It returns <code>null</code> for a missing node or a null ID. For a property map, bind the node first with <code>WITH gds.util.asNode(nodeId) AS n RETURN properties(n)</code>.</td>
+</tr>
+</tbody>
+</table>
+
+<p>For <code>gds.graph.project.estimate</code>, use the same selectors and properties as
+<code>project</code>. Set <code>relationshipProperties</code> to apply the same weight definitions to
+each relationship type and omit <code>properties</code> from the relationship selectors.
+Integer <code>nodeCount</code> and <code>relationshipCount</code> default to <code>-1</code>. With both defaults,
+the estimate uses counts from the database. Set a nonnegative count to estimate
+a hypothetical input. The other count is zero if left unspecified. The memory
+percentages are relative to the connection's GDS budget. <code>treeView</code> and <code>mapView</code>
+break down the estimated bytes for graph structure and node properties. The
+configuration also accepts positive Integer <code>concurrency</code> and <code>readConcurrency</code>
+with default <code>4</code>, optional String <code>jobId</code> with default <code>null</code>, and Boolean
+<code>logProgress</code> with default <code>true</code>.</p>
+
+<p>For <code>gds.graph.nodeProperties.stream</code> and <code>gds.graph.nodeProperties.write</code>,
+pass a projected label alias or a list of distinct projected aliases as
+<code>nodeLabels</code>. Both calls use the union of label membership recorded at
+projection time. Use <code>'*'</code> or <code>['*']</code> to select all nodes. Stream returns
+<code>null</code> for missing values. Write preserves existing database values for
+excluded nodes and selected nodes with a missing projected value. Use distinct
+property names when streaming or dropping properties. Give each write
+destination a distinct name.</p>
+
+<p><code>nodeProperties.stream</code>, <code>relationshipProperty.stream</code>, <code>nodeProperties.drop</code>,
+and <code>nodeProperties.write</code> accept positive Integer <code>concurrency</code> with default
+<code>4</code>. The two stream procedures accept <code>jobId</code> as a String or <code>null</code> (the
+default) for compatibility. <code>nodeProperties.stream</code> also accepts
+<code>listNodeLabels: false</code>, which is the only supported value. The write
+procedure accepts positive Integer <code>writeConcurrency</code>, which defaults to
+<code>concurrency</code>.</p>
+
+<p>Run <code>project</code>, catalog <code>drop</code>, and <code>mutate</code> outside explicit transactions.
+Algorithm and catalog <code>write</code> calls require a writable connection and
+participate in the database transaction.</p>
+
+<h2 id="algorithm-modes">Algorithm modes</h2>
+
+<p>Call an algorithm with <code>CALL gds.&lt;algorithm&gt;.&lt;mode&gt;(graphName [, configuration])</code>.
+The graph name is a String, and the configuration map normally defaults to
+<code>{}</code>. Use constants or bound parameters. For example, look up a source node
+with <code>MATCH</code> and pass its Integer ID to a pathfinding call.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Mode</th>
+  <th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>stream</code></td>
+  <td>Returns result rows for the application to read. Use <code>YIELD</code> to select columns and <code>ORDER BY</code> when you need a specific order.</td>
+</tr>
+<tr>
+  <td><code>stats</code></td>
+  <td>Returns one summary row without saving results.</td>
+</tr>
+<tr>
+  <td><code>mutate</code></td>
+  <td>Saves results in the named graph. Use the algorithm's configuration to name the results, and read them with the catalog property procedures.</td>
+</tr>
+<tr>
+  <td><code>write</code></td>
+  <td>Saves node properties or creates relationships in the database. Use the algorithm's configuration to name the properties or relationship type.</td>
+</tr>
+<tr>
+  <td><code>&lt;mode&gt;.estimate</code></td>
+  <td>Estimates managed memory for the specified mode and named graph. Use the mode's configuration, including its required properties. Returns Integer <code>nodeCount</code>, <code>relationshipCount</code>, <code>bytesMin</code>, and <code>bytesMax</code>. All families with estimates also return String <code>requiredMemory</code> except Degree, WCC, and PageRank.</td>
+</tr>
+</tbody>
+</table>
+
+<p>Estimates cover the additional GDS memory needed for a call. The existing
+projection and other retained results also count toward the connection's limit.
+A multiple-type estimate includes the combined view's memory in <code>bytesMax</code>.
+Any memory the estimate itself requires counts toward the same limit.</p>
+
+<h3 id="save-a-result-for-further-analysis">Save a result for further analysis</h3>
+
+<p>Project the people and their <code>KNOWS</code> relationships from the community seed example.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s">'people'</span><span class="p">,</span><span class="w"> </span><span class="s">'Person'</span><span class="p">,</span><span class="w"> </span><span class="s">'KNOWS'</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Estimate the memory needed to store PageRank scores in that projection.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">pageRank</span><span class="p">.</span><span class="n">mutate</span><span class="p">.</span><span class="n">estimate</span><span class="p">(</span><span class="s">'people'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">mutateProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'rank'</span><span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">bytesMin</span><span class="p">,</span><span class="w"> </span><span class="n">bytesMax</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">bytesMin</span><span class="p">,</span><span class="w"> </span><span class="n">bytesMax</span>
+</code></pre>
+</div>
+
+<p>Run the analysis and read the saved property from the projection.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">pageRank</span><span class="p">.</span><span class="n">mutate</span><span class="p">(</span><span class="s">'people'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">mutateProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'rank'</span><span class="p">})</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">nodeProperty</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'people'</span><span class="p">,</span><span class="w"> </span><span class="s">'rank'</span><span class="p">)</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodeId</span><span class="p">,</span><span class="w"> </span><span class="n">propertyValue</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">nodeId</span><span class="p">,</span><span class="w"> </span><span class="n">propertyValue</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">rank</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">rank</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="w"> </span><span class="n">nodeId</span>
+</code></pre>
+</div>
+
+<p>Use <code>write</code> to calculate PageRank and save it on the database nodes. Drop the
+projection when you finish analyzing it.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">pageRank</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'people'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">writeProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'pageRank'</span><span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodePropertiesWritten</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">nodePropertiesWritten</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">drop</span><span class="p">(</span><span class="s">'people'</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<h3 id="common-options">Common options</h3>
+
+<p>The algorithm tables add to these options. Unknown keys raise an error.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Option</th>
+  <th>Type and default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>concurrency</code></td>
+  <td>Positive Integer. Defaults to <code>4</code>, or <code>1</code> for depth-first search and the Graphalytics procedures. Algorithms run on one thread.</td>
+</tr>
+<tr>
+  <td><code>nodeLabels</code></td>
+  <td>List of Strings. The default <code>['*']</code> selects all projected nodes. List distinct projected label aliases to select their union in <code>stream</code>, <code>stats</code>, <code>mutate</code>, and <code>write</code>. The same selection applies to the corresponding estimates.</td>
+</tr>
+<tr>
+  <td><code>relationshipTypes</code></td>
+  <td>List of Strings. The default <code>['*']</code> selects all original projected relationships. List distinct original type aliases or types added by Node Similarity or kNN mutate, such as <code>['LIKES', 'SIMILAR']</code>. Each edge with both endpoints in the node selection contributes in its projected direction, including parallel edges and both orientations of undirected edges. A selection is undirected only when every selected type is undirected. A weighted algorithm requires <code>relationshipWeightProperty</code> to name a property alias shared by every selected type, including all original types when you use <code>['*']</code>. Types with different weight aliases or no weight can coexist on the same graph.</td>
+</tr>
+<tr>
+  <td><code>jobId</code></td>
+  <td>String or <code>null</code>. Defaults to <code>null</code>. Accepted as a compatibility option.</td>
+</tr>
+<tr>
+  <td><code>logProgress</code></td>
+  <td>Boolean. Defaults to <code>true</code>. Accepted as a compatibility option.</td>
+</tr>
+<tr>
+  <td><code>mutateProperty</code>, <code>writeProperty</code></td>
+  <td>String names for results saved by mutate or write. Use a new projected property name for <code>mutateProperty</code>. Supply <code>writeProperty</code> to name the database property. HITS uses suffixes, and Node Similarity and kNN also require a relationship type.</td>
+</tr>
+<tr>
+  <td><code>writeConcurrency</code></td>
+  <td>Positive Integer for <code>write</code> and <code>write.estimate</code>. Defaults to <code>4</code> for Degree, WCC, PageRank, Triangle Count, and Local Clustering Coefficient. Other write modes inherit <code>concurrency</code> when omitted. Writes run on one thread.</td>
+</tr>
+</tbody>
+</table>
+
+<p>Label membership comes from the projection's snapshot. Each matching node
+appears once, including isolated nodes, and keeps its database ID and projected
+properties. Filtered writes save node properties on selected nodes or create
+relationships between selected nodes, depending on the algorithm. Estimates
+report the selected counts and include memory needed to build the filtered view.</p>
+
+<p>Filtered numeric mutations add properties to the original projection. They keep
+the algorithm's Integer or Float result type, with <code>null</code> for excluded nodes.
+<code>nodePropertiesWritten</code> counts the values saved for selected nodes.
+<code>mutate.estimate</code> reports the filtered node and relationship counts and budgets
+each saved property across all projected nodes.</p>
+
+<p>When the selected labels match zero nodes, <code>nodePropertiesWritten</code> is zero.
+WCC, SCC, unweighted Degree, Triangle Count, and Local Clustering Coefficient
+publish an all-null property. The other supported filtered mutations create a
+property when the selection contains nodes.</p>
+
+<h2 id="algorithm-families">Algorithm families</h2>
+
+<p>Each family below supports <code>stream</code>, <code>stats</code>, <code>mutate</code>, and <code>write</code>, with an
+<code>.estimate</code> for each mode. For example, use <code>gds.wcc.stream</code> to read component
+IDs, or <code>gds.wcc.write.estimate</code> to estimate the memory needed to save them.</p>
+
+<h3 id="centrality">Centrality</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Family</th>
+  <th>Stream columns</th>
+  <th>Configuration and behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>gds.degree</code></td>
+  <td><code>nodeId</code>, Float <code>score</code></td>
+  <td><code>orientation</code> is a case-insensitive String. <code>'NATURAL'</code> counts outgoing arcs and is the default, including for <code>null</code>. <code>'REVERSE'</code> counts incoming arcs and <code>'UNDIRECTED'</code> counts both ends. Optional String <code>relationshipWeightProperty</code> defaults to <code>null</code>. When supplied, only positive weights contribute to the sum. Unweighted mutate stores an Integer. Weighted mutate and both write variants store Floats.</td>
+</tr>
+<tr>
+  <td><code>gds.pageRank</code></td>
+  <td><code>nodeId</code>, Float <code>score</code></td>
+  <td>Float <code>dampingFactor</code> defaults to <code>0.85</code> in <code>[0, 1)</code>. Positive Integer <code>maxIterations</code> defaults to <code>20</code> and finite nonnegative Float <code>tolerance</code> defaults to <code>1e-7</code>. Accepts projected nonnegative weights through <code>relationshipWeightProperty</code>.</td>
+</tr>
+<tr>
+  <td><code>gds.articleRank</code></td>
+  <td><code>nodeId</code>, Float <code>score</code></td>
+  <td>Uses the PageRank options and defaults and accepts <code>null</code> for <code>dampingFactor</code>, <code>maxIterations</code>, and <code>tolerance</code> to select their defaults. <code>maxIterations</code> accepts <code>1</code> through <code>2147483647</code>. ArticleRank uses the graph's average out-degree when distributing influence.</td>
+</tr>
+<tr>
+  <td><code>gds.eigenvector</code></td>
+  <td><code>nodeId</code>, Float <code>score</code></td>
+  <td>Integer <code>maxIterations</code> defaults to <code>20</code> and accepts <code>1</code> through <code>2147483647</code>. Finite nonnegative Float <code>tolerance</code> defaults to <code>1e-7</code>. Both accept <code>null</code> to select their defaults. Accepts projected nonnegative weights through <code>relationshipWeightProperty</code>.</td>
+</tr>
+<tr>
+  <td><code>gds.hits</code></td>
+  <td><code>nodeId</code>, Map <code>values</code></td>
+  <td>Requires a directed projection. Integer <code>hitsIterations</code> defaults to <code>20</code> and accepts <code>0</code> through <code>536870911</code>. String <code>authProperty</code> and <code>hubProperty</code> name the two Float fields and default to <code>'auth'</code> and <code>'hub'</code>. The names must be distinct and contain no whitespace. Case-insensitive String <code>partitioning</code> accepts <code>'AUTO'</code> (default), <code>'RANGE'</code>, or <code>'DEGREE'</code>. A supplied <code>relationshipWeightProperty</code> must match a projected alias. Scores use topology.</td>
+</tr>
+<tr>
+  <td><code>gds.betweenness</code></td>
+  <td><code>nodeId</code>, Float <code>score</code></td>
+  <td>Exact unweighted betweenness. Optional Integer <code>samplingSize</code> defaults to <code>null</code> and, when supplied, must cover every projected node. Optional Integer <code>samplingSeed</code> defaults to <code>null</code> and has no effect on all-source execution. <code>relationshipWeightProperty</code> must be omitted or null.</td>
+</tr>
+<tr>
+  <td><code>gds.closeness</code></td>
+  <td><code>nodeId</code>, Float <code>score</code></td>
+  <td>Unweighted closeness. Boolean <code>useWassermanFaust</code> defaults to <code>false</code> when omitted or <code>null</code>. Set it to <code>true</code> to apply Wasserman–Faust normalization for reachable nodes.</td>
+</tr>
+<tr>
+  <td><code>gds.closeness.harmonic</code></td>
+  <td><code>nodeId</code>, Float <code>score</code></td>
+  <td>Unweighted harmonic centrality based on incoming shortest-path distances.</td>
+</tr>
+</tbody>
+</table>
+
+<p>For HITS, set <code>mutateProperty</code> or <code>writeProperty</code> to a String suffix, which
+defaults to <code>''</code>. For example, <code>{mutateProperty: '_hits'}</code> saves <code>auth_hits</code>
+and <code>hub_hits</code> with the default base names. With <code>nodeLabels</code>, mutate
+publishes both score columns together on the original projection. Both scores
+are <code>null</code> for excluded nodes. <code>nodePropertiesWritten</code> counts two values per
+selected node. <code>gds.hits.mutate.estimate</code> requires both the named graph and a
+configuration map, even when the map is empty. Its estimate accounts for both
+score properties.</p>
+
+<h4 id="personalize-or-scale-rank-scores">Personalize or scale rank scores</h4>
+
+<p>PageRank, ArticleRank, and Eigenvector all accept <code>sourceNodes</code>, <code>scaler</code>, and <code>relationshipWeightProperty</code>. Choose a projected weight alias for the call. Omit it or use <code>null</code> for unweighted scores.</p>
+
+<p><code>sourceNodes</code> is an exact nonnegative Integer ID or a list of those IDs in the projection. The default is <code>null</code>, which uses uniform initialization. PageRank and ArticleRank also accept a list of <code>[nodeId, bias]</code> pairs with finite nonnegative biases. The last bias for a repeated ID wins. An explicit empty list yields zero scores for PageRank and ArticleRank and uses uniform initialization for Eigenvector.</p>
+
+<p><code>scaler</code> transforms completed scores before reporting or saving them. Use a case-insensitive String or a map with a String <code>type</code>. The default <code>'NONE'</code> leaves scores as computed.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Scaler</th>
+  <th>Transform</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>MAX</code></td>
+  <td>Divide by maximum absolute score.</td>
+</tr>
+<tr>
+  <td><code>MINMAX</code></td>
+  <td>Subtract the minimum and divide by the range.</td>
+</tr>
+<tr>
+  <td><code>MEAN</code></td>
+  <td>Subtract the mean and divide by the range.</td>
+</tr>
+<tr>
+  <td><code>CENTER</code></td>
+  <td>Subtract the mean.</td>
+</tr>
+<tr>
+  <td><code>STDSCORE</code></td>
+  <td>Subtract the mean and divide by the population standard deviation.</td>
+</tr>
+<tr>
+  <td><code>L1NORM</code>, <code>L2NORM</code></td>
+  <td>Normalize by the corresponding vector norm.</td>
+</tr>
+<tr>
+  <td><code>LOG</code></td>
+  <td>Take the natural logarithm of the score plus <code>offset</code>. The optional finite numeric <code>offset</code> defaults to <code>0</code> and the sum must be positive. For example, <code>{type: 'LOG', offset: 1}</code>.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="connectivity-and-communities">Connectivity and communities</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Family</th>
+  <th>Stream columns</th>
+  <th>Configuration and behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>gds.wcc</code></td>
+  <td><code>nodeId</code>, Integer <code>componentId</code></td>
+  <td>Weakly connected components treat relationships as undirected for connectivity. Each component's ID is its lowest database node ID.</td>
+</tr>
+<tr>
+  <td><code>gds.scc</code></td>
+  <td><code>nodeId</code>, Integer <code>componentId</code></td>
+  <td>Strongly connected components follow relationship direction and use each component's lowest database node ID. Set Boolean <code>consecutiveIds</code> to <code>true</code> to relabel components from zero. Defaults to <code>false</code>.</td>
+</tr>
+<tr>
+  <td><code>gds.labelPropagation</code></td>
+  <td><code>nodeId</code>, Integer <code>communityId</code></td>
+  <td>Integer <code>maxIterations</code> defaults to <code>10</code> and accepts <code>1</code> through <code>2147483647</code>. Accepts String <code>seedProperty</code>, <code>nodeWeightProperty</code>, and <code>relationshipWeightProperty</code>, each defaulting to <code>null</code>. Seeds are Integer catalog properties. Node weights must be present and finite.</td>
+</tr>
+<tr>
+  <td><code>gds.louvain</code></td>
+  <td><code>nodeId</code>, nullable List of Integers <code>intermediateCommunityIds</code>, Integer <code>communityId</code></td>
+  <td>Requires an <code>UNDIRECTED</code> projection. Integer <code>maxIterations</code> and <code>maxLevels</code> each default to <code>10</code> and accept <code>1</code> through <code>2147483647</code>. Finite nonnegative Float <code>tolerance</code> defaults to <code>0.0001</code>. Accepts String <code>seedProperty</code> and <code>relationshipWeightProperty</code>, each defaulting to <code>null</code>.</td>
+</tr>
+<tr>
+  <td><code>gds.leiden</code></td>
+  <td><code>nodeId</code>, nullable List of Integers <code>intermediateCommunityIds</code>, Integer <code>communityId</code></td>
+  <td>Requires an <code>UNDIRECTED</code> projection. Integer <code>maxLevels</code> defaults to <code>10</code> and accepts <code>1</code> through <code>2147483647</code>. Finite Float <code>tolerance</code>, <code>gamma</code>, and <code>theta</code> default to <code>0.0001</code>, <code>1.0</code>, and <code>0.01</code>. Tolerance must be nonnegative. Gamma and theta must be positive. Optional Integer <code>randomSeed</code> defaults to <code>null</code> and uses seed <code>0</code> when omitted. Accepts String <code>seedProperty</code> and <code>relationshipWeightProperty</code>, each defaulting to <code>null</code>.</td>
+</tr>
+</tbody>
+</table>
+
+<p>For Label Propagation, Louvain, and Leiden, <code>minCommunitySize</code> is a
+nonnegative Integer that defaults to <code>0</code>. It filters which community IDs stream
+returns or write saves. The write summary still describes all computed
+communities. The option is available in stream, write, and their estimates.
+<code>consecutiveIds</code> defaults to <code>false</code>. Set it to <code>true</code> to renumber communities
+from zero. Leave it <code>false</code> when specifying <code>seedProperty</code>.</p>
+
+<p>Without <code>seedProperty</code>, Label Propagation starts each node with its own ID as
+its label. Missing seeds receive distinct labels outside the supplied seed IDs.
+When set, <code>nodeWeightProperty</code> scales the vote contributed by each node.</p>
+
+<p>Louvain and Leiden require nonnegative Integer seeds and nonnegative
+relationship weights. Their Boolean <code>includeIntermediateCommunities</code> defaults
+to <code>false</code>. Set it to <code>true</code> in stream or stats, or in those modes' estimates,
+and leave <code>consecutiveIds</code> set to <code>false</code>. Stream returns <code>null</code> in
+<code>intermediateCommunityIds</code> when the option is off. Mutate and write save only
+the final community ID.</p>
+
+<h3 id="neighborhood-structure">Neighborhood structure</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Family</th>
+  <th>Stream columns</th>
+  <th>Configuration and behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>gds.kcore</code></td>
+  <td><code>nodeId</code>, Integer <code>coreValue</code></td>
+  <td>Requires an <code>UNDIRECTED</code> projection. Counts parallel relationships individually and a self-loop twice. Ignores weights.</td>
+</tr>
+<tr>
+  <td><code>gds.triangleCount</code></td>
+  <td><code>nodeId</code>, Integer <code>triangleCount</code></td>
+  <td>Requires an <code>UNDIRECTED</code> projection. Nonnegative Integer <code>maxDegree</code> defaults to <code>9223372036854775807</code>. Nodes above this cutoff return <code>-1</code> and their triangles are excluded. <code>labelFilter</code> is a List of Strings and must be <code>[]</code>, the default.</td>
+</tr>
+<tr>
+  <td><code>gds.localClusteringCoefficient</code></td>
+  <td><code>nodeId</code>, Float <code>localClusteringCoefficient</code></td>
+  <td>Requires an <code>UNDIRECTED</code> projection. Optional String <code>triangleCountProperty</code> defaults to <code>null</code>. Supply a complete Integer catalog property to reuse valid triangle counts.</td>
+</tr>
+</tbody>
+</table>
+
+<p>Triangle Count and Local Clustering Coefficient use unique neighbors, ignore loops and weights, and count parallel relationships as one adjacency. To reuse triangle counts, run Triangle Count in mutate mode and select that property using <code>triangleCountProperty</code>. Its values must be nonnegative and fit each node's degree, so use counts computed without a degree cutoff that produced <code>-1</code>.</p>
+
+<h3 id="summary-columns">Summary columns</h3>
+
+<p>Except for HITS, stats, mutate, and write return Integer <code>preProcessingMillis</code>, <code>computeMillis</code>, <code>postProcessingMillis</code>, and Map <code>configuration</code> plus the fields below. Mutate and write also return Integer <code>nodePropertiesWritten</code> and <code>mutateMillis</code> or <code>writeMillis</code>. HITS omits <code>postProcessingMillis</code>.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Family</th>
+  <th>Additional fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Degree, Betweenness, Closeness, Harmonic</td>
+  <td>Map <code>centralityDistribution</code></td>
+</tr>
+<tr>
+  <td>PageRank, ArticleRank, Eigenvector</td>
+  <td>Map <code>centralityDistribution</code>, Integer <code>ranIterations</code>, Boolean <code>didConverge</code></td>
+</tr>
+<tr>
+  <td>HITS</td>
+  <td>Integer <code>ranIterations</code>, Boolean <code>didConverge</code></td>
+</tr>
+<tr>
+  <td>WCC, SCC</td>
+  <td>Integer <code>componentCount</code>, Map <code>componentDistribution</code></td>
+</tr>
+<tr>
+  <td>K-Core</td>
+  <td>Integer <code>degeneracy</code></td>
+</tr>
+<tr>
+  <td>Label Propagation</td>
+  <td>Integer <code>ranIterations</code> and <code>communityCount</code>, Boolean <code>didConverge</code>, Map <code>communityDistribution</code></td>
+</tr>
+<tr>
+  <td>Louvain</td>
+  <td>Float <code>modularity</code>, List of Floats <code>modularities</code>, Integer <code>ranLevels</code> and <code>communityCount</code>, Map <code>communityDistribution</code></td>
+</tr>
+<tr>
+  <td>Leiden</td>
+  <td>Float <code>modularity</code>, List of Floats <code>modularities</code>, Integer <code>ranLevels</code>, <code>nodeCount</code>, and <code>communityCount</code>, Boolean <code>didConverge</code>, Map <code>communityDistribution</code></td>
+</tr>
+<tr>
+  <td>Triangle Count</td>
+  <td>Integer <code>nodeCount</code> and <code>globalTriangleCount</code></td>
+</tr>
+<tr>
+  <td>Local Clustering Coefficient</td>
+  <td>Integer <code>nodeCount</code>, Float <code>averageClusteringCoefficient</code></td>
+</tr>
+</tbody>
+</table>
+
+<p><code>centralityDistribution</code> summarizes node scores. <code>componentDistribution</code> and <code>communityDistribution</code> summarize group sizes. Each map has <code>min</code>, <code>max</code>, <code>mean</code>, <code>p1</code>, <code>p5</code>, <code>p10</code>, <code>p25</code>, <code>p50</code>, <code>p75</code>, <code>p90</code>, <code>p95</code>, <code>p99</code>, and <code>p999</code> (99.9th percentile). The values are <code>null</code> when there are no scores or groups to summarize.</p>
+
+<h2 id="node-similarity">Node Similarity</h2>
+
+<p><code>gds.nodeSimilarity.stream(graphName, configuration)</code> returns Integer database
+node IDs <code>node1</code> and <code>node2</code> and their Float <code>similarity</code>. The score measures
+shared outgoing neighbors. Parallel relationships to the same neighbor
+count once, and a self-loop counts the node among its own neighbors. Each pair
+compares two different nodes. Set the projection's relationship orientation to
+choose which neighbors the procedure uses.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Option</th>
+  <th>Default</th>
+  <th>Accepted values and behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>similarityMetric</code></td>
+  <td><code>'JACCARD'</code></td>
+  <td>Case-insensitive String. Jaccard divides the shared count by the union size. <code>'COSINE'</code> divides it by the geometric mean of the two degrees. <code>'OVERLAP'</code> divides it by the smaller degree.</td>
+</tr>
+<tr>
+  <td><code>degreeCutoff</code></td>
+  <td><code>1</code></td>
+  <td>Positive Integer minimum number of distinct neighbors for both nodes.</td>
+</tr>
+<tr>
+  <td><code>upperDegreeCutoff</code></td>
+  <td><code>2147483647</code></td>
+  <td>Positive Integer maximum number of distinct neighbors for both nodes. Set it to at least <code>degreeCutoff</code>.</td>
+</tr>
+<tr>
+  <td><code>similarityCutoff</code></td>
+  <td><code>1e-42</code></td>
+  <td>Number between <code>0</code> and <code>1</code>, inclusive. Keep scores at or above this threshold. Use <code>0</code> to also allow pairs with no shared neighbors.</td>
+</tr>
+<tr>
+  <td><code>topK</code></td>
+  <td><code>10</code></td>
+  <td>Positive Integer. Keep up to this many highest-scoring matches per <code>node1</code>. For tied scores, a smaller <code>node2</code> ranks first.</td>
+</tr>
+<tr>
+  <td><code>topN</code></td>
+  <td><code>0</code></td>
+  <td>Nonnegative Integer. Keep up to this many highest-scoring rows after applying <code>topK</code>. Use <code>0</code> for no global limit. Ties rank by ascending <code>node1</code>, then <code>node2</code>.</td>
+</tr>
+</tbody>
+</table>
+
+<p>Leave <code>relationshipWeightProperty</code> unset or pass <code>null</code> for the unweighted
+comparison. A pair can appear in both directions because the procedure applies
+<code>topK</code> independently to each source. Use
+<code>gds.nodeSimilarity.stream.estimate(graphName, configuration)</code> with the same
+options to estimate memory.</p>
+
+<p><code>gds.nodeSimilarity.stats(graphName, configuration)</code> reports one row for the
+same options as stream. <code>similarityPairs</code> counts the directed pairs that
+stream returns. <code>similarityDistribution</code> describes those scores with
+<code>min</code>, <code>max</code>, <code>mean</code>, population standard deviation (<code>stdDev</code>), and the
+nearest-rank percentiles <code>p1</code>, <code>p5</code>, <code>p10</code>, <code>p25</code>, <code>p50</code>, <code>p75</code>, <code>p90</code>, <code>p95</code>,
+<code>p99</code>, <code>p999</code> (99.9th percentile), and <code>p100</code>. When the pair count is zero,
+all distribution values are <code>null</code>. The row also includes <code>nodesCompared</code>,
+timings, and the effective <code>configuration</code>. Use <code>gds.nodeSimilarity.stats.estimate</code>
+with the same options to estimate memory.</p>
+
+<p><code>gds.nodeSimilarity.mutate(graphName, configuration)</code> adds the stream's
+directed pairs and their Float scores to the named projection. Set
+<code>mutateRelationshipType</code> to a new relationship type and <code>mutateProperty</code>
+to the score property name. The mutation updates the catalog atomically.
+With <code>nodeLabels</code>, the selection applies to the nodes being compared and
+their neighbors. Each new relationship connects two selected nodes.
+<code>gds.graph.list</code> shows the new type on the original projection. Use
+<code>gds.nodeSimilarity.mutate.estimate</code> with the same configuration. Its counts
+describe the selected graph, and its memory estimate includes the new type
+across the full projection.</p>
+
+<p>The mutate summary reports <code>relationshipsWritten</code>, <code>nodesCompared</code>,
+<code>similarityDistribution</code>, timings, and the effective <code>configuration</code>.
+Use <code>relationshipTypes</code> to select the added type for another algorithm.
+For algorithms that accept weights, set <code>relationshipWeightProperty</code> to the
+score property name.</p>
+
+<p><code>gds.nodeSimilarity.write(graphName, configuration)</code> creates one directed
+database relationship from <code>node1</code> to <code>node2</code> for each pair the stream would
+return. Set <code>writeRelationshipType</code> and <code>writeProperty</code> to name the relationship
+type and the Float score property. Each successful call creates new
+relationships in the calling transaction. If any edge or score write fails,
+the whole batch rolls back. Writes run serially. <code>writeConcurrency</code> is accepted
+and defaults to <code>concurrency</code>. Use <code>gds.nodeSimilarity.write.estimate</code> with the
+write configuration to estimate memory.</p>
+
+<p>The write summary reports <code>relationshipsWritten</code>, <code>nodesCompared</code>,
+<code>similarityDistribution</code>, timings, and the effective <code>configuration</code>.</p>
+
+<h3 id="find-people-with-shared-interests">Find people with shared interests</h3>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="p">(</span><span class="n">ada</span><span class="p">:</span><span class="n">Person</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Ada'</span><span class="p">}),</span><span class="w"> </span><span class="p">(</span><span class="n">sam</span><span class="p">:</span><span class="n">Person</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Sam'</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">art</span><span class="p">:</span><span class="n">Topic</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="n">music</span><span class="p">:</span><span class="n">Topic</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="n">maps</span><span class="p">:</span><span class="n">Topic</span><span class="p">)</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="p">(</span><span class="n">ada</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">LIKES</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">art</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="n">ada</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">LIKES</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">music</span><span class="p">),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">sam</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">LIKES</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">art</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="n">sam</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">LIKES</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">music</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="n">sam</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">LIKES</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">maps</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s">'interests'</span><span class="p">,</span><span class="w"> </span><span class="o">[</span><span class="s">'Person'</span><span class="p">,</span><span class="w"> </span><span class="s">'Topic'</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="s">'LIKES'</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">nodeSimilarity</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'interests'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">topK</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">node1</span><span class="p">,</span><span class="w"> </span><span class="n">node2</span><span class="p">,</span><span class="w"> </span><span class="n">similarity</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">asNode</span><span class="p">(</span><span class="n">node1</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">person</span><span class="p">,</span>
+<span class="w">       </span><span class="n">gds</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">asNode</span><span class="p">(</span><span class="n">node2</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">other</span><span class="p">,</span><span class="w"> </span><span class="n">similarity</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">person</span><span class="p">,</span><span class="w"> </span><span class="n">other</span>
+</code></pre>
+</div>
+
+<p>Ada and Sam share two of their three combined topics, so each row has a
+similarity of approximately <code>0.667</code>. Summarize the same result set.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">nodeSimilarity</span><span class="p">.</span><span class="n">stats</span><span class="p">(</span><span class="s">'interests'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">topK</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">similarityPairs</span><span class="p">,</span><span class="w"> </span><span class="n">similarityDistribution</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">similarityPairs</span><span class="p">,</span><span class="w"> </span><span class="n">similarityDistribution</span>
+</code></pre>
+</div>
+
+<p>Add these pairs to the projection.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">nodeSimilarity</span><span class="p">.</span><span class="n">mutate</span><span class="p">(</span><span class="s">'interests'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">topK</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">mutateRelationshipType</span><span class="p">:</span><span class="w"> </span><span class="s">'SIMILAR_IN_MEMORY'</span><span class="p">,</span><span class="w"> </span><span class="n">mutateProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'score'</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">relationshipsWritten</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">relationshipsWritten</span>
+</code></pre>
+</div>
+
+<p>Read the directed relationships and scores from the projection.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">relationshipProperty</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'interests'</span><span class="p">,</span><span class="w"> </span><span class="s">'score'</span><span class="p">,</span><span class="w"> </span><span class="s">'SIMILAR_IN_MEMORY'</span><span class="p">)</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">sourceNodeId</span><span class="p">,</span><span class="w"> </span><span class="n">targetNodeId</span><span class="p">,</span><span class="w"> </span><span class="n">propertyValue</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">asNode</span><span class="p">(</span><span class="n">sourceNodeId</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">person</span><span class="p">,</span>
+<span class="w">       </span><span class="n">gds</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">asNode</span><span class="p">(</span><span class="n">targetNodeId</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">other</span><span class="p">,</span><span class="w"> </span><span class="n">propertyValue</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">similarity</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">person</span><span class="p">,</span><span class="w"> </span><span class="n">other</span>
+</code></pre>
+</div>
+
+<p>Find Ada's and Sam's node IDs.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">person</span><span class="p">:</span><span class="n">Person</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="o">[</span><span class="s">'Ada'</span><span class="p">,</span><span class="w"> </span><span class="s">'Sam'</span><span class="o">]</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="n">person</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">nodeId</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">name</span>
+</code></pre>
+</div>
+
+<p>Use those IDs as Integer parameters <code>$adaId</code> and <code>$samId</code> to compute a path
+from Ada to Sam on the same projection. The path has one edge with a cost
+of approximately <code>0.667</code>.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">shortestPath</span><span class="p">.</span><span class="n">dijkstra</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'interests'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">sourceNode</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">adaId</span><span class="p">,</span><span class="w"> </span><span class="n">targetNodes</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="err">$</span><span class="n">samId</span><span class="o">]</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipTypes</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'SIMILAR_IN_MEMORY'</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">relationshipWeightProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'score'</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodeIds</span><span class="p">,</span><span class="w"> </span><span class="n">totalCost</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">nodeIds</span><span class="p">,</span><span class="w"> </span><span class="n">totalCost</span>
+</code></pre>
+</div>
+
+<p>Use write mode to persist the same directed pairs and scores to the database.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">nodeSimilarity</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'interests'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">topK</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">writeRelationshipType</span><span class="p">:</span><span class="w"> </span><span class="s">'SIMILAR_TO'</span><span class="p">,</span><span class="w"> </span><span class="n">writeProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'score'</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">relationshipsWritten</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">relationshipsWritten</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">person</span><span class="p">:</span><span class="n">Person</span><span class="p">)</span><span class="o">-[</span><span class="n">r</span><span class="p">:</span><span class="n">SIMILAR_TO</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">other</span><span class="p">:</span><span class="n">Person</span><span class="p">)</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">person</span><span class="p">,</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">other</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">score</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">similarity</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">person</span><span class="p">,</span><span class="w"> </span><span class="n">other</span>
+</code></pre>
+</div>
+
+<h2 id="embeddings-and-nearest-neighbors">Embeddings and nearest neighbors</h2>
+
+<p><code>gds.fastRP.stream(graphName, configuration)</code> returns each selected Integer
+<code>nodeId</code> and its <code>embedding</code> as a List of Floats. Set positive Integer
+<code>embeddingDimension</code>. <code>iterationWeights</code> is a list of finite numbers and
+defaults to <code>[0.0, 1.0, 1.0]</code>. It weights successive
+outgoing-neighborhood averages. <code>nodeSelfInfluence</code> adds a contribution from
+the node's own initial vector and defaults to <code>0.0</code>. An empty
+<code>iterationWeights</code> requires nonzero <code>nodeSelfInfluence</code>. The initial vectors
+are scaled by outgoing degree raised to <code>normalizationStrength</code>, which
+defaults to <code>0.0</code>. Set <code>relationshipWeightProperty</code> to a projected alias
+containing finite nonnegative weights to average using the sum of outgoing weights.</p>
+
+<p>Use Integer <code>randomSeed</code> for reproducible embeddings. Omit it or pass <code>null</code>
+to use seed <code>0</code>. <code>nodeSelfInfluence</code> and <code>normalizationStrength</code> must be finite
+numbers. Use <code>propertyRatio: 0.0</code> and <code>featureProperties: []</code>, the only
+supported values, to create embeddings from graph structure.
+<code>gds.fastRP.stats</code> returns <code>nodeCount</code>, <code>preProcessingMillis</code>, <code>computeMillis</code>,
+and <code>configuration</code>.
+<code>gds.fastRP.mutate</code> saves vectors in the catalog under a new <code>mutateProperty</code>.
+With <code>nodeLabels</code>, <code>nodePropertiesWritten</code> counts the selected nodes and the
+property streams as <code>null</code> for excluded nodes. Combine <code>nodeLabels</code> with
+<code>relationshipTypes</code> to select both nodes and relationships. A selection with
+no nodes leaves the catalog unchanged. The mutate estimate includes storage
+for the full projection's embedding column when the call publishes a property.
+<code>gds.fastRP.write</code> saves embeddings to the database property named by
+<code>writeProperty</code> as <code>VECTOR</code> values with
+<code>FLOAT64</code> coordinates. Writeback supports 1 through 65,535 coordinates per
+vector. Mutate and write return the same columns as stats plus
+<code>nodePropertiesWritten</code> and <code>mutateMillis</code> or <code>writeMillis</code>, respectively.
+All four <code>gds.fastRP</code> modes have a matching <code>.estimate</code>.</p>
+
+<p><code>gds.knn.stream(graphName, configuration)</code> searches all distinct node pairs
+using catalog properties and returns <code>node1</code>, <code>node2</code>, and Float
+<code>similarity</code>. Set <code>nodeProperties</code> to a property name, a nonempty map from names
+to metrics, or a nonempty list combining both forms. Metric names are
+case-insensitive. Each selected node must have a finite
+value for every requested property. Use the same <code>nodeLabels</code> with
+<code>gds.knn.stream</code> or <code>gds.knn.mutate</code> to use embeddings produced by a filtered
+FastRP mutation.
+Each property contributes equally to the score.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Property</th>
+  <th>Metrics and score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Integer or Float scalar</td>
+  <td><code>DEFAULT</code> computes <code>1 / (1 + absolute difference)</code>.</td>
+</tr>
+<tr>
+  <td>Float vector</td>
+  <td><code>DEFAULT</code> and <code>COSINE</code> map cosine to <code>[0, 1]</code>. <code>PEARSON</code> maps correlation to the same range. <code>EUCLIDEAN</code> computes <code>1 / (1 + Euclidean distance)</code>. Zero norm or zero variance gives <code>0.5</code> for cosine or Pearson, respectively.</td>
+</tr>
+</tbody>
+</table>
+
+<p>Positive Integer <code>topK</code> defaults to <code>10</code> and limits matches per source. Finite
+<code>similarityCutoff</code> accepts <code>[0, 1]</code> and defaults to <code>0</code>. Equal scores prefer the
+lower target ID. Use <code>sampleRate: 1.0</code> and <code>deltaThreshold: 0.0</code>, the only
+supported values. Optional Integer <code>randomSeed</code> defaults to <code>null</code> and is
+accepted for compatibility. Use
+<code>gds.knn.stream.estimate</code> with the same options to estimate memory.</p>
+
+<p><code>gds.knn.stats(graphName, configuration)</code> takes the same options as stream and
+returns one summary row. <code>similarityPairs</code> counts the directed pairs after
+cutoff and top-k selection. <code>similarityDistribution</code> reports the minimum,
+maximum, mean, population standard deviation (<code>stdDev</code>), and the same
+nearest-rank percentiles as <a href="#node-similarity">Node Similarity</a>. When the pair
+count is zero, all distribution
+values are <code>null</code>. Use <code>gds.knn.stats.estimate</code> with the same options to
+estimate memory.</p>
+
+<p><code>gds.knn.mutate(graphName, configuration)</code> atomically adds the stream's
+directed pairs and their Float scores to the named projection. Set
+<code>mutateRelationshipType</code> to a new relationship type and <code>mutateProperty</code> to
+the score property name. With <code>nodeLabels</code>, every new relationship connects
+two selected nodes. The type is available on the original projection, and
+<code>gds.graph.list</code> shows it in the schema and counts the added relationships.
+Use <code>gds.knn.mutate.estimate</code> with the same configuration. Its counts describe
+the selected graph, and its memory estimate includes the new type across the
+full projection. Choose the type with <code>relationshipTypes</code> and the Float scores
+with <code>relationshipWeightProperty</code> when running weighted PageRank or pathfinding.</p>
+
+<p><code>gds.knn.write(graphName, configuration)</code> creates one directed database
+relationship from <code>node1</code> to <code>node2</code> for each pair the stream would return.
+Required Strings <code>writeRelationshipType</code> and <code>writeProperty</code> name the
+relationship type and the Float score property. Each successful call creates
+new relationships. The entire batch rolls back if an edge or score write
+fails. The write runs serially in the calling transaction. <code>writeConcurrency</code>
+is accepted and defaults to <code>concurrency</code>. Use <code>gds.knn.write.estimate</code> with the
+write configuration to estimate memory.</p>
+
+<p>The stats, mutate, and write summaries include <code>similarityDistribution</code>,
+<code>nodesCompared</code>, timings, and the effective <code>configuration</code>. Mutate and write
+report the created relationship count in <code>relationshipsWritten</code>.
+<code>nodePairsConsidered</code> counts ordered comparisons before cutoff and top-k
+selection. A successful exhaustive search reports <code>ranIterations: 0</code> and
+<code>didConverge: true</code>.</p>
+
+<h3 id="compare-fastrp-embeddings">Compare FastRP embeddings</h3>
+
+<p>Create a graph with two people who share an interest.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="p">(:</span><span class="n">Person</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Ada'</span><span class="p">})</span><span class="o">-[</span><span class="p">:</span><span class="n">LIKES</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">music</span><span class="p">:</span><span class="n">Topic</span><span class="p">),</span>
+<span class="w">       </span><span class="p">(:</span><span class="n">Person</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">'Sam'</span><span class="p">})</span><span class="o">-[</span><span class="p">:</span><span class="n">LIKES</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">music</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s">'neighbors'</span><span class="p">,</span><span class="w"> </span><span class="o">[</span><span class="s">'Person'</span><span class="p">,</span><span class="w"> </span><span class="s">'Topic'</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="s">'LIKES'</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">fastRP</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'neighbors'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">embeddingDimension</span><span class="p">:</span><span class="w"> </span><span class="m">64</span><span class="p">,</span><span class="w"> </span><span class="n">iterationWeights</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="m">1</span><span class="p">.</span><span class="m">0</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">randomSeed</span><span class="p">:</span><span class="w"> </span><span class="m">7</span><span class="p">,</span>
+<span class="w">  </span><span class="n">writeProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'storedEmbedding'</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s">'stored-neighbors'</span><span class="p">,</span><span class="w"> </span><span class="o">[</span><span class="s">'Person'</span><span class="p">,</span><span class="w"> </span><span class="s">'Topic'</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">LIKES</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">properties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">score</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">defaultValue</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">.</span><span class="m">0</span><span class="p">}}}</span>
+<span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="n">nodeProperties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">embedding</span><span class="p">:</span><span class="w"> </span><span class="s">'storedEmbedding'</span><span class="p">}})</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">knn</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'stored-neighbors'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">nodeProperties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">embedding</span><span class="p">:</span><span class="w"> </span><span class="s">'COSINE'</span><span class="p">},</span><span class="w"> </span><span class="n">topK</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">similarityCutoff</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">9</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">node1</span><span class="p">,</span><span class="w"> </span><span class="n">node2</span><span class="p">,</span><span class="w"> </span><span class="n">similarity</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">asNode</span><span class="p">(</span><span class="n">node1</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">person</span><span class="p">,</span>
+<span class="w">       </span><span class="n">gds</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">asNode</span><span class="p">(</span><span class="n">node2</span><span class="p">).</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">other</span><span class="p">,</span><span class="w"> </span><span class="n">similarity</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">person</span><span class="p">,</span><span class="w"> </span><span class="n">other</span>
+</code></pre>
+</div>
+
+<p>Ada and Sam have the same outgoing neighbor and receive the same embedding.
+Summarize the two directed pairs.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">knn</span><span class="p">.</span><span class="n">stats</span><span class="p">(</span><span class="s">'stored-neighbors'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">nodeProperties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">embedding</span><span class="p">:</span><span class="w"> </span><span class="s">'COSINE'</span><span class="p">},</span><span class="w"> </span><span class="n">topK</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">similarityCutoff</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">9</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">similarityPairs</span><span class="p">,</span><span class="w"> </span><span class="n">similarityDistribution</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">similarityPairs</span><span class="p">,</span><span class="w"> </span><span class="n">similarityDistribution</span>
+</code></pre>
+</div>
+
+<p>Add their directed pairs and scores to the projection.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">knn</span><span class="p">.</span><span class="n">mutate</span><span class="p">(</span><span class="s">'stored-neighbors'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">nodeProperties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">embedding</span><span class="p">:</span><span class="w"> </span><span class="s">'COSINE'</span><span class="p">},</span><span class="w"> </span><span class="n">topK</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">similarityCutoff</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">9</span><span class="p">,</span>
+<span class="w">  </span><span class="n">mutateRelationshipType</span><span class="p">:</span><span class="w"> </span><span class="s">'SIMILAR_IN_MEMORY'</span><span class="p">,</span><span class="w"> </span><span class="n">mutateProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'score'</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">relationshipsWritten</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">relationshipsWritten</span>
+</code></pre>
+</div>
+
+<p>Run weighted PageRank using both relationship types. The original projection
+supplies a default <code>score</code> of <code>1.0</code> on <code>LIKES</code>, and the kNN mutation supplies
+the similarity scores.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">pageRank</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'stored-neighbors'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">relationshipTypes</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'LIKES'</span><span class="p">,</span><span class="w"> </span><span class="s">'SIMILAR_IN_MEMORY'</span><span class="o">]</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipWeightProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'score'</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodeId</span><span class="p">,</span><span class="w"> </span><span class="n">score</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">nodeId</span><span class="p">,</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">nodeId</span>
+</code></pre>
+</div>
+
+<p>Find Ada's and Sam's node IDs.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">person</span><span class="p">:</span><span class="n">Person</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="o">[</span><span class="s">'Ada'</span><span class="p">,</span><span class="w"> </span><span class="s">'Sam'</span><span class="o">]</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="n">person</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">nodeId</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">name</span>
+</code></pre>
+</div>
+
+<p>Pass the two IDs as Integer parameters <code>$adaId</code> and <code>$samId</code>. Weighted Dijkstra
+uses the stored similarity score as the cost of the direct path from Ada to Sam.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">shortestPath</span><span class="p">.</span><span class="n">dijkstra</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'stored-neighbors'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">sourceNode</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">adaId</span><span class="p">,</span><span class="w"> </span><span class="n">targetNodes</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="err">$</span><span class="n">samId</span><span class="o">]</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipTypes</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="s">'SIMILAR_IN_MEMORY'</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">relationshipWeightProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'score'</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodeIds</span><span class="p">,</span><span class="w"> </span><span class="n">totalCost</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">nodeIds</span><span class="p">,</span><span class="w"> </span><span class="n">totalCost</span>
+</code></pre>
+</div>
+
+<p>Use write mode to persist the same neighbor pairs and scores to the database.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">knn</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'stored-neighbors'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">nodeProperties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">embedding</span><span class="p">:</span><span class="w"> </span><span class="s">'COSINE'</span><span class="p">},</span><span class="w"> </span><span class="n">topK</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">similarityCutoff</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">9</span><span class="p">,</span>
+<span class="w">  </span><span class="n">writeRelationshipType</span><span class="p">:</span><span class="w"> </span><span class="s">'SIMILAR_TO'</span><span class="p">,</span><span class="w"> </span><span class="n">writeProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'score'</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">relationshipsWritten</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">relationshipsWritten</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">person</span><span class="p">:</span><span class="n">Person</span><span class="p">)</span><span class="o">-[</span><span class="n">r</span><span class="p">:</span><span class="n">SIMILAR_TO</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">other</span><span class="p">:</span><span class="n">Person</span><span class="p">)</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">person</span><span class="p">,</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">other</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">score</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">similarity</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">person</span><span class="p">,</span><span class="w"> </span><span class="n">other</span>
+</code></pre>
+</div>
+
+<h2 id="pathfinding">Pathfinding</h2>
+
+<p>All calls in this section accept a named graph and a configuration map. <code>sourceNode</code> is required and must be an exact nonnegative Integer node ID in the projection. The same ID rules apply to targets. Dijkstra, Delta-Stepping, A*, and Yen's algorithm use unit edge costs when <code>relationshipWeightProperty</code> is omitted or <code>null</code>. To use finite nonnegative weights, set it to the projected String alias.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Procedure</th>
+  <th>Configuration and result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>gds.bfs.stream</code></td>
+  <td><code>targetNodes</code> accepts an Integer or list of Integers. Use <code>[]</code> (the default) or <code>null</code> to traverse without targets. With targets, traversal stops at the first visited target. <code>maxDepth</code> is an inclusive Integer hop limit. It defaults to <code>-1</code>. A negative value or <code>null</code> allows unlimited depth. Returns <code>sourceNode</code>, <code>nodeIds</code> in visit order, and <code>path</code>, which links visits with virtual <code>NEXT</code> relationships.</td>
+</tr>
+<tr>
+  <td><code>gds.bfs.stats</code></td>
+  <td>Takes the same options as <code>gds.bfs.stream</code>. Returns <code>preProcessingMillis</code>, <code>computeMillis</code>, <code>postProcessingMillis</code>, and <code>configuration</code>.</td>
+</tr>
+<tr>
+  <td><code>gds.bfs.stream.estimate</code>, <code>gds.bfs.stats.estimate</code></td>
+  <td>Estimate the corresponding mode using its configuration.</td>
+</tr>
+<tr>
+  <td><code>gds.dfs.stream</code></td>
+  <td>Uses the <code>targetNodes</code> and <code>maxDepth</code> options from <code>gds.bfs.stream</code>. Depth follows the current branch. Returns <code>sourceNode</code>, <code>nodeIds</code> in depth-first visit order, and <code>path</code> with virtual <code>NEXT</code> relationships.</td>
+</tr>
+<tr>
+  <td><code>gds.dfs.stream.estimate</code></td>
+  <td>Estimates managed memory using the same configuration as depth-first search.</td>
+</tr>
+<tr>
+  <td><code>gds.shortestPath.dijkstra.stream</code></td>
+  <td>Supply either <code>targetNode</code> as an Integer or <code>targetNodes</code> as an Integer or nonempty list of Integers. Defaults are <code>null</code> and <code>[]</code> respectively. Returns one row per distinct reachable target with <code>index</code>, <code>sourceNode</code>, <code>targetNode</code>, <code>totalCost</code>, <code>nodeIds</code>, <code>costs</code>, and <code>path</code>.</td>
+</tr>
+<tr>
+  <td><code>gds.allShortestPaths.dijkstra.stream</code></td>
+  <td>Returns the same columns for all reachable nodes, including the source, without a target option.</td>
+</tr>
+<tr>
+  <td><code>gds.allShortestPaths.delta.stream</code></td>
+  <td>Returns the same columns for all reachable nodes, including the source. <code>delta</code> is a finite positive bucket width and defaults to <code>2.0</code>.</td>
+</tr>
+<tr>
+  <td><code>gds.shortestPath.astar.stream</code></td>
+  <td>Requires a single Integer <code>targetNode</code> and String aliases <code>latitudeProperty</code> and <code>longitudeProperty</code>. Returns the same columns as Dijkstra source-target for a reachable target.</td>
+</tr>
+<tr>
+  <td><code>gds.shortestPath.yens.stream</code></td>
+  <td>Requires a single Integer <code>targetNode</code>. Set positive Integer <code>k</code> to the maximum number of paths. The default is <code>1</code>. Returns the same columns as Dijkstra source-target, with one row per path.</td>
+</tr>
+<tr>
+  <td><code>gds.shortestPath.dijkstra.stream.estimate</code>, <code>gds.allShortestPaths.dijkstra.stream.estimate</code></td>
+  <td>Estimate the corresponding mode using its configuration.</td>
+</tr>
+<tr>
+  <td><code>gds.allShortestPaths.delta.stream.estimate</code></td>
+  <td>Estimates managed memory using the same configuration as Delta-Stepping stream.</td>
+</tr>
+<tr>
+  <td><code>gds.shortestPath.astar.stream.estimate</code></td>
+  <td>Estimates managed memory using the same configuration as A* stream.</td>
+</tr>
+<tr>
+  <td><code>gds.shortestPath.yens.stream.estimate</code></td>
+  <td>Estimates managed memory using the same configuration as Yen's stream.</td>
+</tr>
+</tbody>
+</table>
+
+<p>Dijkstra, Delta-Stepping, A*, and Yen's algorithm return Float cumulative
+<code>costs</code> starting at <code>0.0</code> at the source. The paths include virtual relationships
+with an individual Float <code>cost</code>. <code>index</code> is zero-based. Use <code>ORDER BY targetNode</code>
+when consuming multiple destinations in target order.</p>
+
+<h3 id="explore-a-graph-depth-first">Explore a graph depth first</h3>
+
+<p>Depth-first search follows outgoing relationships in reverse projected order
+and visits each node once. It follows a branch until it reaches the inclusive
+<code>maxDepth</code> limit or has no further unvisited neighbors, then backtracks.
+The source has depth zero. Each node's first visit determines its depth.
+Relationship weights are ignored. Create sample stations for the pathfinding
+examples.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">:</span><span class="n">Station</span><span class="w"> </span><span class="p">{</span><span class="n">code</span><span class="p">:</span><span class="w"> </span><span class="s">'A'</span><span class="p">,</span><span class="w"> </span><span class="n">latitude</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">longitude</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">0</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">b</span><span class="p">:</span><span class="n">Station</span><span class="w"> </span><span class="p">{</span><span class="n">code</span><span class="p">:</span><span class="w"> </span><span class="s">'B'</span><span class="p">,</span><span class="w"> </span><span class="n">latitude</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">longitude</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">.</span><span class="m">0</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">c</span><span class="p">:</span><span class="n">Station</span><span class="w"> </span><span class="p">{</span><span class="n">code</span><span class="p">:</span><span class="w"> </span><span class="s">'C'</span><span class="p">,</span><span class="w"> </span><span class="n">latitude</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">.</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">longitude</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">0</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">d</span><span class="p">:</span><span class="n">Station</span><span class="w"> </span><span class="p">{</span><span class="n">code</span><span class="p">:</span><span class="w"> </span><span class="s">'D'</span><span class="p">,</span><span class="w"> </span><span class="n">latitude</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">.</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">longitude</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">.</span><span class="m">0</span><span class="p">}),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">ROUTE</span><span class="w"> </span><span class="p">{</span><span class="n">distance</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="p">.</span><span class="m">0</span><span class="p">}</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">b</span><span class="p">),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">ROUTE</span><span class="w"> </span><span class="p">{</span><span class="n">distance</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="p">.</span><span class="m">0</span><span class="p">}</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">c</span><span class="p">),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">ROUTE</span><span class="w"> </span><span class="p">{</span><span class="n">distance</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="p">.</span><span class="m">0</span><span class="p">}</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">d</span><span class="p">),</span>
+<span class="w">       </span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">ROUTE</span><span class="w"> </span><span class="p">{</span><span class="n">distance</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="p">.</span><span class="m">0</span><span class="p">}</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s">'routes'</span><span class="p">,</span><span class="w"> </span><span class="s">'Station'</span><span class="p">,</span><span class="w"> </span><span class="s">'ROUTE'</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Read the start and end IDs and bind the resulting Integers as <code>$sourceId</code> and
+<code>$targetId</code> in the pathfinding calls below.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="k">start</span><span class="p">:</span><span class="n">Station</span><span class="w"> </span><span class="p">{</span><span class="n">code</span><span class="p">:</span><span class="w"> </span><span class="s">'A'</span><span class="p">}),</span><span class="w"> </span><span class="p">(</span><span class="n">finish</span><span class="p">:</span><span class="n">Station</span><span class="w"> </span><span class="p">{</span><span class="n">code</span><span class="p">:</span><span class="w"> </span><span class="s">'D'</span><span class="p">})</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="k">start</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sourceId</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">(</span><span class="n">finish</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">targetId</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">dfs</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'routes'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">sourceNode</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">sourceId</span><span class="p">,</span><span class="w"> </span><span class="n">maxDepth</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">nodeIds</span><span class="p">,</span><span class="w"> </span><span class="n">path</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">nodeIds</span><span class="p">,</span><span class="w"> </span><span class="o">[</span><span class="n">station</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="n">nodes</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="n">station</span><span class="p">.</span><span class="n">code</span><span class="o">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">stations</span>
+</code></pre>
+</div>
+
+<h3 id="find-routes-from-one-source-with-delta-stepping">Find routes from one source with Delta-Stepping</h3>
+
+<p>Project the relationship costs with an alias such as <code>cost</code>, then bind
+<code>$sourceId</code> to the start station's node ID. Delta-Stepping groups tentative
+distances into buckets of width <code>delta</code> and runs on one thread. Changing the
+width can change which path is returned when several paths have the same cost.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s">'weighted_routes'</span><span class="p">,</span><span class="w"> </span><span class="s">'Station'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">ROUTE</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">properties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">cost</span><span class="p">:</span><span class="w"> </span><span class="s">'distance'</span><span class="p">}}})</span>
+</code></pre>
+</div>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">allShortestPaths</span><span class="p">.</span><span class="n">delta</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'weighted_routes'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">sourceNode</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">sourceId</span><span class="p">,</span>
+<span class="w">  </span><span class="n">delta</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="p">.</span><span class="m">0</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipWeightProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'cost'</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">targetNode</span><span class="p">,</span><span class="w"> </span><span class="n">totalCost</span><span class="p">,</span><span class="w"> </span><span class="n">path</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">targetNode</span><span class="p">,</span><span class="w"> </span><span class="n">totalCost</span><span class="p">,</span><span class="w"> </span><span class="o">[</span><span class="n">station</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="n">nodes</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="n">station</span><span class="p">.</span><span class="n">code</span><span class="o">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">stations</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">targetNode</span>
+</code></pre>
+</div>
+
+<h3 id="find-a-route-with-a">Find a route with A*</h3>
+
+<p>Project both coordinates for each selected node. The columns accept Integer or
+finite Float values in degrees. Latitude must be in <code>[-90, 90]</code> and longitude
+in <code>[-180, 180]</code>. A* uses these coordinates to guide the search and returns
+<code>totalCost</code> in the units of the configured edge weights.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">graph</span><span class="p">.</span><span class="n">project</span><span class="p">(</span><span class="s">'stations'</span><span class="p">,</span>
+<span class="w">  </span><span class="p">{</span><span class="n">Station</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">properties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">lat</span><span class="p">:</span><span class="w"> </span><span class="s">'latitude'</span><span class="p">,</span><span class="w"> </span><span class="n">lon</span><span class="p">:</span><span class="w"> </span><span class="s">'longitude'</span><span class="p">}}},</span>
+<span class="w">  </span><span class="p">{</span><span class="n">ROUTE</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">properties</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">cost</span><span class="p">:</span><span class="w"> </span><span class="s">'distance'</span><span class="p">}}})</span>
+</code></pre>
+</div>
+
+<p>Bind <code>$sourceId</code> and <code>$targetId</code> to the IDs of the start and end stations.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">shortestPath</span><span class="p">.</span><span class="n">astar</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'stations'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">sourceNode</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">sourceId</span><span class="p">,</span>
+<span class="w">  </span><span class="n">targetNode</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">targetId</span><span class="p">,</span>
+<span class="w">  </span><span class="n">latitudeProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'lat'</span><span class="p">,</span>
+<span class="w">  </span><span class="n">longitudeProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'lon'</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipWeightProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'cost'</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">totalCost</span><span class="p">,</span><span class="w"> </span><span class="n">path</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">totalCost</span><span class="p">,</span><span class="w"> </span><span class="o">[</span><span class="n">station</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="n">nodes</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="n">station</span><span class="p">.</span><span class="n">code</span><span class="o">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">stations</span>
+</code></pre>
+</div>
+
+<h3 id="find-alternative-routes-with-yens-algorithm">Find alternative routes with Yen's algorithm</h3>
+
+<p>Use a named projection such as <code>stations</code> above. Yen's algorithm assigns a
+zero-based <code>index</code> to each of up to <code>k</code> paths in nondecreasing total cost.
+Each path visits a node at most once. Parallel relationships count as separate
+routes, so rows may report the same node sequence and costs. An unreachable
+target yields no rows. Use <code>ORDER BY index</code> to return the routes in search order.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">gds</span><span class="p">.</span><span class="n">shortestPath</span><span class="p">.</span><span class="n">yens</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="s">'stations'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">sourceNode</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">sourceId</span><span class="p">,</span>
+<span class="w">  </span><span class="n">targetNode</span><span class="p">:</span><span class="w"> </span><span class="err">$</span><span class="n">targetId</span><span class="p">,</span>
+<span class="w">  </span><span class="n">k</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="p">,</span>
+<span class="w">  </span><span class="n">relationshipWeightProperty</span><span class="p">:</span><span class="w"> </span><span class="s">'cost'</span>
+<span class="p">})</span>
+<span class="k">YIELD</span><span class="w"> </span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">totalCost</span><span class="p">,</span><span class="w"> </span><span class="n">path</span>
+<span class="k">RETURN</span><span class="w"> </span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">totalCost</span><span class="p">,</span><span class="w"> </span><span class="o">[</span><span class="n">station</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="n">nodes</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="n">station</span><span class="p">.</span><span class="n">code</span><span class="o">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">stations</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">index</span>
+</code></pre>
+</div>
+
+<h2 id="graphalytics-profiles">Graphalytics profiles</h2>
+
+<p>These procedures return <code>nodeId</code> and <code>value</code> for every selected node and support stream mode. Use these names when you need Graphalytics output conventions. For Graphalytics weak connectivity, use <code>gds.wcc.stream</code> and its <code>componentId</code> column.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Procedure</th>
+  <th>Configuration and value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>gds.graphalytics.bfs.stream</code></td>
+  <td>Requires Integer <code>sourceNode</code>. Returns Integer hop distance or <code>9223372036854775807</code> for unreachable nodes.</td>
+</tr>
+<tr>
+  <td><code>gds.graphalytics.sssp.stream</code></td>
+  <td>Requires Integer <code>sourceNode</code> and String <code>relationshipWeightProperty</code> naming the projected nonnegative weights. Returns Float distance or <code>null</code> for unreachable nodes.</td>
+</tr>
+<tr>
+  <td><code>gds.graphalytics.pageRank.stream</code></td>
+  <td>Float <code>dampingFactor</code> defaults to <code>0.85</code> and accepts <code>[0, 1]</code>. Nonnegative Integer <code>maxIterations</code> defaults to <code>20</code>. Returns Float scores after a fixed round count with uniform redistribution of sink mass.</td>
+</tr>
+<tr>
+  <td><code>gds.graphalytics.cdlp.stream</code></td>
+  <td>Nonnegative Integer <code>maxIterations</code> defaults to <code>10</code>. Returns Integer community labels using synchronous label propagation.</td>
+</tr>
+<tr>
+  <td><code>gds.graphalytics.localClusteringCoefficient.stream</code></td>
+  <td>Uses the common options and returns Float local clustering coefficients for the projection's orientation.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+                
+                
+                
+            </section>
+    </main>
+<script>
+    function escapeHTML(html) {
+        return document.createElement('div').appendChild(document.createTextNode(html)).parentNode.innerHTML;
+    }
+
+    const originalContent = document.querySelector("main.pdoc");
+    let currentContent = originalContent;
+
+    function setContent(innerHTML) {
+        let elem;
+        if (innerHTML) {
+            elem = document.createElement("main");
+            elem.classList.add("pdoc");
+            elem.innerHTML = innerHTML;
+        } else {
+            elem = originalContent;
+        }
+        if (currentContent !== elem) {
+            currentContent.replaceWith(elem);
+            currentContent = elem;
+        }
+    }
+
+    function getSearchTerm() {
+        return (new URL(window.location)).searchParams.get("search");
+    }
+
+    const searchBox = document.querySelector(".pdoc input[type=search]");
+    searchBox.addEventListener("input", function () {
+        let url = new URL(window.location);
+        if (searchBox.value.trim()) {
+            url.hash = "";
+            url.searchParams.set("search", searchBox.value);
+        } else {
+            url.searchParams.delete("search");
+        }
+        history.replaceState("", "", url.toString());
+        onInput();
+    });
+    window.addEventListener("popstate", onInput);
+
+
+    let search, searchErr;
+
+    async function initialize() {
+        try {
+            search = await new Promise((resolve, reject) => {
+                const script = document.createElement("script");
+                script.type = "text/javascript";
+                script.async = true;
+                script.onload = () => resolve(window.pdocSearch);
+                script.onerror = (e) => reject(e);
+                script.src = "../search.js";
+                document.getElementsByTagName("head")[0].appendChild(script);
+            });
+        } catch (e) {
+            console.error("Cannot fetch pdoc search index");
+            searchErr = "Cannot fetch search index.";
+        }
+        onInput();
+
+        document.querySelector("nav.pdoc").addEventListener("click", e => {
+            if (e.target.hash) {
+                searchBox.value = "";
+                searchBox.dispatchEvent(new Event("input"));
+            }
+        });
+    }
+
+    function onInput() {
+        setContent((() => {
+            const term = getSearchTerm();
+            if (!term) {
+                return null
+            }
+            if (searchErr) {
+                return `<h3>Error: ${searchErr}</h3>`
+            }
+            if (!search) {
+                return "<h3>Searching...</h3>"
+            }
+
+            window.scrollTo({top: 0, left: 0, behavior: 'auto'});
+
+            const results = search(term);
+
+            let html;
+            if (results.length === 0) {
+                html = `No search results for '${escapeHTML(term)}'.`
+            } else {
+                html = `<h4>${results.length} search result${results.length > 1 ? "s" : ""} for '${escapeHTML(term)}'.</h4>`;
+            }
+            for (let result of results.slice(0, 10)) {
+                let doc = result.doc;
+                let url = `../${doc.modulename.replaceAll(".", "/")}.html`;
+                if (doc.qualname) {
+                    url += `#${doc.qualname}`;
+                }
+
+                let heading;
+                switch (result.doc.kind) {
+                    case "function":
+                        if (doc.fullname.endsWith(".__init__")) {
+                            heading = `<span class="name">${doc.fullname.replace(/\.__init__$/, "")}</span>${doc.signature}`;
+                        } else {
+                            heading = `<span class="def">${doc.funcdef}</span> <span class="name">${doc.fullname}</span>${doc.signature}`;
+                        }
+                        break;
+                    case "class":
+                        heading = `<span class="def">class</span> <span class="name">${doc.fullname}</span>`;
+                        if (doc.bases)
+                            heading += `<wbr>(<span class="base">${doc.bases}</span>)`;
+                        heading += `:`;
+                        break;
+                    case "variable":
+                        heading = `<span class="name">${doc.fullname}</span>`;
+                        if (doc.annotation)
+                            heading += `<span class="annotation">${doc.annotation}</span>`;
+                        if (doc.default_value)
+                            heading += `<span class="default_value"> = ${doc.default_value}</span>`;
+                        break;
+                    default:
+                        heading = `<span class="name">${doc.fullname}</span>`;
+                        break;
+                }
+                html += `
+                        <section class="search-result">
+                        <a href="${url}" class="attr ${doc.kind}">${heading}</a>
+                        <div class="docstring">${doc.doc}</div>
+                        </section>
+                    `;
+
+            }
+            return html;
+        })());
+    }
+
+    if (getSearchTerm()) {
+        initialize();
+        searchBox.value = getSearchTerm();
+        onInput();
+    } else {
+        searchBox.addEventListener("focus", initialize, {once: true});
+    }
+
+    searchBox.addEventListener("keydown", e => {
+        if (["ArrowDown", "ArrowUp", "Enter"].includes(e.key)) {
+            let focused = currentContent.querySelector(".search-result.focused");
+            if (!focused) {
+                currentContent.querySelector(".search-result").classList.add("focused");
+            } else if (
+                e.key === "ArrowDown"
+                && focused.nextElementSibling
+                && focused.nextElementSibling.classList.contains("search-result")
+            ) {
+                focused.classList.remove("focused");
+                focused.nextElementSibling.classList.add("focused");
+                focused.nextElementSibling.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "nearest"
+                });
+            } else if (
+                e.key === "ArrowUp"
+                && focused.previousElementSibling
+                && focused.previousElementSibling.classList.contains("search-result")
+            ) {
+                focused.classList.remove("focused");
+                focused.previousElementSibling.classList.add("focused");
+                focused.previousElementSibling.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "nearest"
+                });
+            } else if (
+                e.key === "Enter"
+            ) {
+                focused.querySelector("a").click();
+            }
+        }
+    });
+</script></body>
+</html>
